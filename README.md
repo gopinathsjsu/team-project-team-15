@@ -42,3 +42,22 @@ Team Members
 
 ### <a href="https://github.com/gopinathsjsu/team-project-code_team15">Github Repo</a>
 
+
+## XP Core Values
+
+- **_Communication_** : We conducted meetings every week in-person to discuss crucial aspects of the project by collaborating and communicating with each other.
+- **_Feedback_** : Team members delivered software frequently, got feedback about it, and refractored the code to make improvements for working code and fix bugs.
+
+<b>How the team kept the core value? </b>
+- Team meetings were held during which diagrams were created to depict the structure of the tables in the back-end. <br>
+- Mock-ups of how the front-end will look like on Figma. <br>
+- Every Standup contains a discussion of the work completed, the obstacles encountered, and any deviations from the diagrams and mockups in the implementation.
+
+## TECH STACK USED:
+
+- Frontend: ReactJS
+- Backend: Java SpringBoot
+- Database: RDS MySQL
+- REST API: Postman(Testing APIs)
+- Cloud: AWS EC2
+
