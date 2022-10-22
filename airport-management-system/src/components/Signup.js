@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 
 import "../components/Login.css"
 class FluidInput extends React.Component {
@@ -30,7 +29,7 @@ class FluidInput extends React.Component {
       let inputClass = "fluid-input";
       if (focused) {
         inputClass += " fluid-input--focus";
-      } else if (value != "") {
+      } else if (value !== "") {
         inputClass += " fluid-input--open";
       }
       
@@ -60,7 +59,8 @@ class FluidInput extends React.Component {
       super(props);
       this.state = {
         focused: false,
-        value: ""
+        value: "",
+        accountType: ''
       };
     }
     focusField() {
@@ -73,6 +73,7 @@ class FluidInput extends React.Component {
       const { target } = event;
       const { value } = target;
       this.setState({
+        accountType: value,
         value: value
       });
     }
@@ -83,7 +84,7 @@ class FluidInput extends React.Component {
       let inputClass = "fluid-input";
       if (focused) {
         inputClass += " fluid-input--focus";
-      } else if (value != "") {
+      } else if (value !== "") {
         inputClass += " fluid-input--open";
       }
       
@@ -107,7 +108,9 @@ class FluidInput extends React.Component {
                 <option value="customer">Customer</option>
             </select>
             <label className="fluid-input-label" forHtml={id}>{label}</label>
-            
+            {(this.state.accountType === "airportEmployee" || this.state.accountType === "airlineEmployee") 
+            ? <div style={{paddingTop:'20px', paddingBottom: '20px' }} ><FluidInput type="text" label="Employee ID" id="EmployeeId" style={style} /></div>
+             : null}
           </div>
         </div>
       );
@@ -124,26 +127,28 @@ class FluidInput extends React.Component {
     }
   }
   
-  class Login extends React.Component {
+  class Signup extends React.Component {
+    
     render() {
       
       const style = {
         margin: "15px 0"
       };
+
       return (
         <div className="login-container" style={{backgroundColor:'#cce4ff'}}>
           <div className="title">
-           Login
+           Sign Up
           </div>
-          <FluidInput type="text" label="name" id="name" style={style} />
+          <FluidInput type="text" label="First Name" id="name" style={style} />
+          <FluidInput type="text" label="Last Name" id="name" style={style} />
+          <FluidInput type="text" label="Email" id="name" style={style} />
           <FluidInput type="password" label="password" id="password" style={style} />
-          <FluidDropDown type="password" label="Account Type" id="Account Type" style={style} />
-          <Button buttonText="log in" buttonClass="login-button" />
-          <div>or</div>
-          <Link to="/signup" style={{paddingTop:"20px"}}>Sign-up</Link>
-          
+          <FluidDropDown label="Account Type" id="Account Type" style={style} />
+          <div style={{paddingTop: '60px'}}></div>
+          <Button buttonText="Create Account" buttonClass="login-button" />
         </div>
       );
     }
   }
- export default Login;
+ export default Signup;
