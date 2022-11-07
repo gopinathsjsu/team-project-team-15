@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, Navigate} from "react-router-dom";
+import { loginUserAction } from '../actions/authenticationAction';
 import "../components/Login.css"
+import { connect } from 'react-redux';
+
 class FluidInput extends React.Component {
     constructor(props) {
       super(props);
@@ -125,25 +127,77 @@ class FluidInput extends React.Component {
   }
   
   class Login extends React.Component {
+
+    onHandleLogin = (event) => {
+      event.preventDefault();
+  
+      let name = event.target.name.value;
+      let password = event.target.password.value;
+      let accountType  = event.target.accountType.value;
+  
+      const data = {
+        name, password, accountType
+      };
+      
+  
+      this.props.dispatch(loginUserAction(data));
+    }
+
     render() {
+      let isSuccess, isLogged;
+    if (this.props.response.login.hasOwnProperty('response')) {
+      isSuccess = this.props.response.login.response.isSuccess;
+      isLogged= this.props.response.login.response.isLogged;
+      console.log(isLogged)
+      
+      
+      if (isSuccess) {
+        localStorage.removeItem('token');
+        localStorage.setItem('token', this.props.response.login.response);
+      }
+    }
       
       const style = {
         margin: "15px 0"
       };
       return (
+        
         <div className="login-container" style={{backgroundColor:'#cce4ff'}}>
+          {!isLogged ? <div>{isSuccess}</div> : <Navigate to="/dashboard" state={ {message:this.props.response.login.response.isSuccess }}/>}
           <div className="title">
            Login
           </div>
-          <FluidInput type="text" label="name" id="name" style={style} />
-          <FluidInput type="password" label="password" id="password" style={style} />
-          <FluidDropDown type="password" label="Account Type" id="Account Type" style={style} />
-          <Button buttonText="log in" buttonClass="login-button" />
-          <div>or</div>
-          <Link to="/signup" style={{paddingTop:"20px"}}>Sign-up</Link>
+          
+          <form className="login-container" onSubmit={this.onHandleLogin}>
+          <div>
+            <label>Name</label>
+            <input type="name" name="name"/>
+          </div>
+          <div>
+            <label>Password</label>
+            <input type="password" name="password" />
+          </div>
+          <div>
+          <label>Account Type</label>
+          <select name="accountType">
+                <option value="none" selected disabled hidden></option>
+                <option value="airlineEmployee">Airline Employee</option>
+                <option value="airportEmployee">Airport Employee</option>
+                <option value="customer">Customer</option>
+            </select>
+          </div>
+          
+            
+          <div><button type="submit" className="login-button">Login</button></div>
+            
+          
+        </form>
+        Don't have account? <Link to='register'>Register here</Link>
           
         </div>
       );
     }
   }
- export default Login;
+  const mapStateToProps = (response) => ({response});
+
+  export default connect(mapStateToProps)(Login);
