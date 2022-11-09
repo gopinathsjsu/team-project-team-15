@@ -38,9 +38,13 @@ app.post('/api/v1/login', function(request, response) {
 
 	// Ensure the input fields exists and are not empty
     console.log("Coming to BACKEND")
-	if (name && password) {
+	let table="Passenger_Name";
+	if(accountType != "PASSENGERS"){
+		table= "Employee_Name"
+	}
+	if (name && password && accountType) {
 		// Execute SQL query that'll select the account from the database based on the specified username and password
-		connection.query('SELECT * FROM PASSENGERS WHERE Passenger_Name = ? AND password = ?', [name, password], function(error, results, fields) {
+		connection.query(`SELECT * FROM ${accountType} WHERE ${table} = ? AND password = ?`, [ name, password], function(error, results, fields) {
 			// If there is an issue with the query, output the error
 			if (error) throw error;
 			// If the account exists

@@ -134,6 +134,18 @@ class FluidInput extends React.Component {
       let name = event.target.name.value;
       let password = event.target.password.value;
       let accountType  = event.target.accountType.value;
+
+      switch(accountType){
+        case "customer":
+          accountType="PASSENGERS"
+          break;
+        case "airlineEmployee":
+          accountType="AIRLINE_EMPLOYEE"
+          break;
+        case "airportEmployee":
+          accountType="AIRPORT_EMPLOYEE"
+          break;
+      }
   
       const data = {
         name, password, accountType
