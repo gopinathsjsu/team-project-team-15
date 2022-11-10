@@ -54,7 +54,7 @@ app.post('/api/v1/login', function(request, response) {
 				request.session.name = name;
                 console.log(results)
 				// Redirect to home page
-				response.send({'isSuccess':`Welcome back!! ${request.session.name}`, 'isLogged': true});
+				response.send({'token': Math.random(6),'isSuccess':`Welcome back!! ${request.session.name}`, 'isLogged': true});
 			} else {
 				response.send({'isSuccess':'Incorrect Username and/or Password!', 'isLogged': false});
 			}			
@@ -62,6 +62,66 @@ app.post('/api/v1/login', function(request, response) {
 		});
 	} else {
 		response.send({'isSuccess':'Please enter Username and Password!', 'isLogged': false});
+		response.end();
+	}
+});
+
+app.post('/api/v1/register', function(request, response) {
+	// Capture the input fields
+	let name = request.body.name;
+	let password = request.body.password;
+    let accountType = request.body.accountType;
+	let employeeID = request.body.employeeID;
+	let email = request.body.email;
+
+	// Ensure the input fields exists and are not empty
+    console.log("Coming to BACKEND")
+	let table="Passenger_Name";
+	let employee='';
+	if(accountType != "PASSENGERS"){
+		table= "Employee_Name";
+		employee="Employee_ID"
+	}
+	if (name && password && accountType && email) {
+		if(employee== ''){
+		// Execute SQL query that'll select the account from the database based on the specified username and password
+		connection.query(`INSERT INTO ${accountType}(${table}, password, email) VALUES (?,?,?)`, [ name,password, email], function(error, results, fields) {
+			// If there is an issue with the query, output the error
+			if (error) throw error;
+			// If the account exists
+			if (results.length > 0) {
+				// Authenticate the user
+				request.session.loggedin = true;
+				request.session.name = name;
+                console.log(results)
+				// Redirect to home page
+				response.send({'token': Math.random(6),'isSuccess':`Welcome back!! ${request.session.name}`, 'isCreated': true});
+			} else {
+				response.send({'isSuccess':'Incorrect Username and/or Password!', 'isCreated': false});
+			}			
+			response.end();
+		});
+	}
+	else{
+		connection.query(`INSERT INTO ${accountType}(${table}, password, email, ${employee}) VALUES (?,?,?, ?)`, [ name,password, email, employeeID], function(error, results, fields) {
+			// If there is an issue with the query, output the error
+			if (error) throw error;
+			// If the account exists
+			if (results.length > 0) {
+				// Authenticate the user
+				request.session.loggedin = true;
+				request.session.name = name;
+                console.log(results)
+				// Redirect to home page
+				response.send({'token': Math.random(6),'isSuccess':`Welcome back!! ${request.session.name}`, 'isCreated': true});
+			} else {
+				response.send({'isSuccess':'Incorrect Username and/or Password!', 'isCreated': false});
+			}			
+			response.end();
+		});
+	}
+	} else {
+		response.send({'isSuccess':'Please enter all the fields!', 'isCreated': false});
 		response.end();
 	}
 });

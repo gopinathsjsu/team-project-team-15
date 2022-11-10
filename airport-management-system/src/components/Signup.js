@@ -1,135 +1,67 @@
 import React from "react";
+import { registerUserAction } from "../actions/authenticationAction";
+import { Navigate} from "react-router-dom";
+import { connect } from 'react-redux';
 
 import "../components/Login.css"
-class FluidInput extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        focused: false,
-        value: ""
-      };
-    }
-    focusField() {
-      const { focused } = this.state;
-      this.setState({
-        focused: !focused
-      });
-    }
-    handleChange(event) {
-      const { target } = event;
-      const { value } = target;
-      this.setState({
-        value: value
-      });
-    }
-    render() {
-      const { type, label, style, id } = this.props;
-      const { focused, value } = this.state;
-      
-      let inputClass = "fluid-input";
-      if (focused) {
-        inputClass += " fluid-input--focus";
-      } else if (value !== "") {
-        inputClass += " fluid-input--open";
-      }
-      
-      return (
-        <div className={inputClass} style={style}>
-          <div className="fluid-input-holder">
-            
-            <input 
-              className="fluid-input-input"
-              type={type}
-              id={id}
-              onFocus={this.focusField.bind(this)}
-              onBlur={this.focusField.bind(this)}
-              onChange={this.handleChange.bind(this)}
-              autocomplete="off"
-            />
-            <label className="fluid-input-label" forHtml={id}>{label}</label>
-            
-          </div>
-        </div>
-      );
-    }
-  }
 
-  class FluidDropDown extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        focused: false,
-        value: "",
-        accountType: ''
-      };
-    }
-    focusField() {
-      const { focused } = this.state;
-      this.setState({
-        focused: !focused
-      });
-    }
-    handleChange(event) {
-      const { target } = event;
-      const { value } = target;
-      this.setState({
-        accountType: value,
-        value: value
-      });
-    }
-    render() {
-      const { type, label, style, id } = this.props;
-      const { focused, value } = this.state;
-      
-      let inputClass = "fluid-input";
-      if (focused) {
-        inputClass += " fluid-input--focus";
-      } else if (value !== "") {
-        inputClass += " fluid-input--open";
-      }
-      
-      return (
-        <div className={inputClass} style={style}>
-          <div className="fluid-input-holder">
-            
-            <select
-              className="fluid-input-input"
-              type={type}
-              id={id}
-              onFocus={this.focusField.bind(this)}
-              onBlur={this.focusField.bind(this)}
-              onChange={this.handleChange.bind(this)}
-              autocomplete="off"
-              
-            >
-                <option value="none" selected disabled hidden></option>
-                <option value="airlineEmployee">Airline Employee</option>
-                <option value="airportEmployee">Airport Employee</option>
-                <option value="customer">Customer</option>
-            </select>
-            <label className="fluid-input-label" forHtml={id}>{label}</label>
-            {(this.state.accountType === "airportEmployee" || this.state.accountType === "airlineEmployee") 
-            ? <div style={{paddingTop:'20px', paddingBottom: '20px' }} ><FluidInput type="text" label="Employee ID" id="EmployeeId" style={style} /></div>
-             : null}
-          </div>
-        </div>
-      );
-    }
-  }
-  
-  class Button extends React.Component {
-    render() {
-      return (
-        <div className={`button ${this.props.buttonClass}`} onClick={this.props.onClick}>
-          {this.props.buttonText}
-        </div>
-      );
-    }
-  }
   
   class Signup extends React.Component {
+    constructor(props){
+      super(props);
+      this.state={accountType:""}
+    }
+    handleChange(event) {
+      const { target } = event;
+      const { value } = target;
+      this.setState({
+        accountType: value
+      });
+    }
+    onHandleSignup=(event) => {
+        event.preventDefault();
+    
+        let name = event.target.name.value;
+        let password = event.target.password.value;
+        let accountType  = event.target.accountType.value;
+        let employeeID  = event.target.employeeId?.value;
+        let email  = event.target.email.value;
+
+        switch(accountType){
+          case "customer":
+            accountType="PASSENGERS"
+            break;
+          case "airlineEmployee":
+            accountType="AIRLINE_EMPLOYEE"
+            break;
+          case "airportEmployee":
+            accountType="AIRPORT_EMPLOYEE"
+            break;
+        }
+    
+        const data = {
+          name, password, accountType, email, employeeID
+        };
+        
+    
+        this.props.dispatch(registerUserAction(data));
+  
+    }
     
     render() {
+      let isSuccess, isCreated;
+    if (this.props.response?.register?.hasOwnProperty('response')) {
+      isSuccess = this.props.response.register.response.isSuccess;
+      isCreated= this.props.response.register.response.isCreated;
+      console.log(isCreated)
+      
+      
+      if (isSuccess) {
+        localStorage.removeItem('token');
+        localStorage.setItem('token', this.props.response.register.response.token);
+        localStorage.setItem('user',this.props.response.register.response.isSuccess);
+      }
+    }
       
       const style = {
         margin: "15px 0"
@@ -137,18 +69,37 @@ class FluidInput extends React.Component {
 
       return (
         <div className="login-container" style={{backgroundColor:'#cce4ff'}}>
+          {!isCreated ? <div>{isSuccess}</div> : <Navigate to="/dashboard"/>}
+          
           <div className="title">
            Sign Up
           </div>
-          <FluidInput type="text" label="First Name" id="name" style={style} />
-          <FluidInput type="text" label="Last Name" id="name" style={style} />
-          <FluidInput type="text" label="Email" id="name" style={style} />
-          <FluidInput type="password" label="password" id="password" style={style} />
-          <FluidDropDown label="Account Type" id="Account Type" style={style} />
-          <div style={{paddingTop: '60px'}}></div>
-          <Button buttonText="Create Account" buttonClass="login-button" />
+          <form class="login-container" onSubmit={this.onHandleSignup}>
+          <div><label>Name</label><input type="text" id="name"/></div>
+          <div><label>Email</label><input type="text" id="email"/></div>
+          <div><label>Password</label><input type="password" id="password"/></div>
+          <div >
+          <label>Account Type</label>
+            <select
+            onChange={this.handleChange.bind(this)}
+            name="accountType"
+            >
+                <option value="none" selected disabled hidden></option>
+                <option value="airlineEmployee">Airline Employee</option>
+                <option value="airportEmployee">Airport Employee</option>
+                <option value="customer">Customer</option>
+            </select>
+           
+            {(this.state.accountType === "airportEmployee" || this.state.accountType === "airlineEmployee") 
+            ? <div style={{paddingTop:'20px', paddingBottom: '20px' }} ><div><label>Employee ID</label><input type="text" name="employeeId"/></div></div>
+             : null}
+          </div>
+          <button type="submit" className="login-button">Create Account</button>
+          </form>
+          
         </div>
       );
     }
   }
- export default Signup;
+  const mapStateToProps = (response) => ({response});
+  export default connect(mapStateToProps)(Signup);

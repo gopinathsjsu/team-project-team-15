@@ -165,7 +165,8 @@ class FluidInput extends React.Component {
       
       if (isSuccess) {
         localStorage.removeItem('token');
-        localStorage.setItem('token', this.props.response.login.response);
+        localStorage.setItem('token', this.props.response.login.response.token);
+        localStorage.setItem('user',this.props.response.login.response.isSuccess);
       }
     }
       
@@ -175,7 +176,7 @@ class FluidInput extends React.Component {
       return (
         
         <div className="login-container" style={{backgroundColor:'#cce4ff'}}>
-          {!isLogged ? <div>{isSuccess}</div> : <Navigate to="/dashboard" state={ {message:this.props.response.login.response.isSuccess }}/>}
+          {!isLogged ? <div>{isSuccess}</div> : <Navigate to="/dashboard" />}
           <div className="title">
            Login
           </div>

@@ -4,7 +4,7 @@ import { useLocation} from 'react-router-dom';
 function DashboardPage (){
     return (
       <div style={{textAlign:'center'}}>
-        {useLocation().state.message}
+        {localStorage.getItem('user')}
       </div>
     );
 }
