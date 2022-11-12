@@ -126,5 +126,10 @@ app.post('/api/v1/register', function(request, response) {
 	}
 });
 
+app.post('/api/v1/logout', function(request, response) {
+	response.send({'isLogged': false});
+	
+});
+
 
 app.listen(3000);

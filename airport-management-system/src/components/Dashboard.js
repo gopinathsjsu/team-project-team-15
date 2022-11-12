@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
-import { useLocation} from 'react-router-dom';
+import { Navigate, useLocation, useNavigate} from 'react-router-dom';
+import { logoutUserAction } from '../actions/authenticationAction';
+import { connect } from 'react-redux';
 
-function DashboardPage (){
+
+
+function DashboardPage (props){
+  const navigate  = useNavigate();
     return (
       <div style={{textAlign:'center'}}>
-        {localStorage.getItem('user')}
+        {props.response.login.response.isSuccess}
+        <div><button onClick={()=>{
+          localStorage.removeItem('token');
+  navigate('/login');props.dispatch(logoutUserAction());}}>Log out</button></div>
       </div>
     );
 }
 
-export default DashboardPage;
+const mapStateToProps = (response) => ({response});
+
+  export default connect(mapStateToProps)(DashboardPage);

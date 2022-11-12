@@ -38,3 +38,23 @@ export const registerUserService = (request) => {
         return json;
       });
   };
+
+  export const logoutUserService = (request) => {
+    const LOGIN_API_ENDPOINT = 'http://localhost:3000/api/v1/logout';
+    console.log("Service")
+    const parameters = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin':'*'
+      }
+    };
+  
+    return fetch(LOGIN_API_ENDPOINT, parameters)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        return json;
+      });
+  };

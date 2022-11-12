@@ -11,16 +11,10 @@ import routes from './routes';
 import Home from './Home';
 import './index.css';
 import DashboardPage from './components/Dashboard';
+import RoutesClass from './components/RoutesClass';
+
 
 const store = configureStore();
-function isLoggedIn() {
-  if (localStorage.getItem('token')) {
-    console.log(localStorage.getItem('token'))
-    return true;
-  }
-  console.log("hello not logged")
-  return false;
-}
 const mapStateToProps = (response) => ({response});
 
 ReactDOM.render(
@@ -29,15 +23,7 @@ ReactDOM.render(
       color: 'white',textAlign:'center',
       fontSize: '48px', backgroundColor: '#007AFF'}}>Airport Management System</header>
       <div style={{paddingBottom: '50px'}}></div>
-  <Provider store={store}>
-    <BrowserRouter history= {useLocation}>
-    <Routes>
-    <Route path="/" element={<Home />} />
-    <Route exact path='/login' element={<Login/>} />
-    <Route exact path='/register' element={<Signup/>} />
-    <Route path='/dashboard' element={!isLoggedIn() ? <Navigate to='/login'><Login/> </Navigate>: <DashboardPage/>} />
-  </Routes>
-      </BrowserRouter>
-
-  </Provider></>
+      <Provider store={store}><RoutesClass/></Provider>
+      
+    </>
   , document.getElementById('root'));

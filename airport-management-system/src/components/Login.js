@@ -4,117 +4,9 @@ import { loginUserAction } from '../actions/authenticationAction';
 import "../components/Login.css"
 import { connect } from 'react-redux';
 
-class FluidInput extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        focused: false,
-        value: ""
-      };
-    }
-    focusField() {
-      const { focused } = this.state;
-      this.setState({
-        focused: !focused
-      });
-    }
-    handleChange(event) {
-      const { target } = event;
-      const { value } = target;
-      this.setState({
-        value: value
-      });
-    }
-    render() {
-      const { type, label, style, id } = this.props;
-      const { focused, value } = this.state;
-      
-      let inputClass = "fluid-input";
-      if (focused) {
-        inputClass += " fluid-input--focus";
-      } else if (value != "") {
-        inputClass += " fluid-input--open";
-      }
-      
-      return (
-        <div className={inputClass} style={style}>
-          <div className="fluid-input-holder">
-            
-            <input 
-              className="fluid-input-input"
-              type={type}
-              id={id}
-              onFocus={this.focusField.bind(this)}
-              onBlur={this.focusField.bind(this)}
-              onChange={this.handleChange.bind(this)}
-              autocomplete="off"
-            />
-            <label className="fluid-input-label" forHtml={id}>{label}</label>
-            
-          </div>
-        </div>
-      );
-    }
-  }
 
-  class FluidDropDown extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        focused: false,
-        value: ""
-      };
-    }
-    focusField() {
-      const { focused } = this.state;
-      this.setState({
-        focused: !focused
-      });
-    }
-    handleChange(event) {
-      const { target } = event;
-      const { value } = target;
-      this.setState({
-        value: value
-      });
-    }
-    render() {
-      const { type, label, style, id } = this.props;
-      const { focused, value } = this.state;
-      
-      let inputClass = "fluid-input";
-      if (focused) {
-        inputClass += " fluid-input--focus";
-      } else if (value != "") {
-        inputClass += " fluid-input--open";
-      }
-      
-      return (
-        <div className={inputClass} style={style}>
-          <div className="fluid-input-holder">
-            
-            <select
-              className="fluid-input-input"
-              type={type}
-              id={id}
-              onFocus={this.focusField.bind(this)}
-              onBlur={this.focusField.bind(this)}
-              onChange={this.handleChange.bind(this)}
-              autocomplete="off"
-              
-            >
-                <option value="none" selected disabled hidden></option>
-                <option value="airlineEmployee">Airline Employee</option>
-                <option value="airportEmployee">Airport Employee</option>
-                <option value="customer">Customer</option>
-            </select>
-            <label className="fluid-input-label" forHtml={id}>{label}</label>
-            
-          </div>
-        </div>
-      );
-    }
-  }
+
+ 
   
   class Button extends React.Component {
     render() {
@@ -205,7 +97,7 @@ class FluidInput extends React.Component {
             
           
         </form>
-        Don't have account? <Link to='register'>Register here</Link>
+        Don't have account? <a href='/register'>Register here</a>
           
         </div>
       );
