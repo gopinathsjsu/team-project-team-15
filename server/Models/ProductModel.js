@@ -28,5 +28,21 @@ const flight = db.define('FLIGHTS',{
 },{
     freezeTableName: true
 });
- 
-export default flight;
+
+const gate = db.define('GATES',{
+    FLIGHT_CODE:{
+        type: DataTypes.STRING
+    },
+    TERMINAL_NUMBER:{
+        type: DataTypes.INTEGER
+    },
+    GATE_NUMBER:{
+        type: DataTypes.INTEGER
+    }
+},{
+    freezeTableName: true
+});
+
+flight.hasOne(gate);
+
+export {flight, gate};

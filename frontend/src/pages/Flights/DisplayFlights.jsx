@@ -24,6 +24,7 @@ const FlightsList = () => {
  
     const getDepFlights = async () => {
         const response = await axios.get("http://localhost:5001/flights");
+        console.log(response)
         const depResponse = response.data.filter(response => response.DEPARTURE_PLACE === 'SFO');
         setDepFlight(depResponse);
     }
@@ -78,6 +79,8 @@ const FlightsList = () => {
                         <th>Arrival Place</th>
                         <th>Departure Date</th>
                         <th>Arrival Date</th>
+                        <th>Terminal</th>
+                        <th>Gate</th>
                         <th>Actions</th>
                 </thead>
                 <tbody>
@@ -89,6 +92,8 @@ const FlightsList = () => {
                             <td><span>{dep_flights.ARRIVAL_PLACE}</span></td>
                             <td><span>{dep_flights.DEPARTURE_DATE}</span></td>
                             <td><span>{dep_flights.ARRIVAL_DATE}</span></td>
+                            <td><span>{dep_flights.GATE.TERMINAL_NUMBER}</span></td>
+                            <td><span>{dep_flights.GATE.GATE_NUMBER}</span></td>
                             <td>
                             <button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
                             {/*<button onClick={ () => deleteFlight(flights.FLIGHT_CODE) } className="btn-remove">Delete</button>*/}
@@ -120,6 +125,9 @@ const FlightsList = () => {
                         <th>Arrival Place</th>
                         <th>Departure Date</th>
                         <th>Arrival Date</th>
+                        <th>Terminal</th>
+                        <th>Gate</th>
+                        <th>Baggage</th>
                         <th>Actions</th>
                 </thead>
                 <tbody>
@@ -131,6 +139,9 @@ const FlightsList = () => {
                             <td><span>{arr_flights.ARRIVAL_PLACE}</span></td>
                             <td><span>{arr_flights.DEPARTURE_DATE}</span></td>
                             <td><span>{arr_flights.ARRIVAL_DATE}</span></td>
+                            <td><span>{arr_flights.GATE.TERMINAL_NUMBER}</span></td>
+                            <td><span>{arr_flights.GATE.GATE_NUMBER}</span></td>
+                            <td><span>{arr_flights.FLIGHT_BAGGAGE}</span></td>
                             <td>
                             <button className='btn-edit' onClick={ () => updateFlight(arr_flights.FLIGHT_CODE) }>update</button>
                             {/*<button onClick={ () => deleteFlight(flights.FLIGHT_CODE) } className="btn-remove">Delete</button>*/}
