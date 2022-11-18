@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "eslintrc": "^1.0.6"
+    "eslintrc": "^1.0.6",
+    "antd": "^4.0.0"
   }
 }

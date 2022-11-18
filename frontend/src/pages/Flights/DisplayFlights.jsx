@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 
-import {DashboardHeader, DashboardHeaderE} from '../../components/DashboardHeader/index.jsx';
+import DashboardHeader from '../../components/DashboardHeader/index.jsx';
 //import {calculateRange, sliceData} from '../../utils/table-pagination';
 import '../../index.css'
  
@@ -84,8 +84,9 @@ const FlightsList = () => {
                         <th>Actions</th>
                 </thead>
                 <tbody>
-                    {dep_flights.map((dep_flights, index) => (                            
-                        <tr key={index}>
+                    {dep_flights.map((dep_flights, index) => 
+                        dep_flights.GATE != "null" ? (                            
+                        <tr key={dep_flights.GATE}>
                             <td><span>{dep_flights.FLIGHT_CODE}</span></td>
                             <td><span>{dep_flights.AIRLINE_CODE}</span></td>
                             <td><span>{dep_flights.DEPARTURE_PLACE}</span></td>
@@ -94,12 +95,12 @@ const FlightsList = () => {
                             <td><span>{dep_flights.ARRIVAL_DATE}</span></td>
                             <td><span>{dep_flights.GATE.TERMINAL_NUMBER}</span></td>
                             <td><span>{dep_flights.GATE.GATE_NUMBER}</span></td>
-                            <td>
-                            <button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
+                            <td><button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
                             {/*<button onClick={ () => deleteFlight(flights.FLIGHT_CODE) } className="btn-remove">Delete</button>*/}
                             </td>
                         </tr>
-                ))}
+                    ) : null
+                )}
                 </tbody>
                 </table>      
         </div>
@@ -139,8 +140,6 @@ const FlightsList = () => {
                             <td><span>{arr_flights.ARRIVAL_PLACE}</span></td>
                             <td><span>{arr_flights.DEPARTURE_DATE}</span></td>
                             <td><span>{arr_flights.ARRIVAL_DATE}</span></td>
-                            <td><span>{arr_flights.GATE.TERMINAL_NUMBER}</span></td>
-                            <td><span>{arr_flights.GATE.GATE_NUMBER}</span></td>
                             <td><span>{arr_flights.FLIGHT_BAGGAGE}</span></td>
                             <td>
                             <button className='btn-edit' onClick={ () => updateFlight(arr_flights.FLIGHT_CODE) }>update</button>

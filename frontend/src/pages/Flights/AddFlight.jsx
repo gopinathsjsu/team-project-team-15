@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {DashboardHeader, DashboardHeaderE} from '../../components/DashboardHeader/index.jsx';
+import DashboardHeader from '../../components/DashboardHeader/index.jsx';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useForm } from "react-hook-form";
 
 
 //import {calculateRange, sliceData} from '../utils/table-pagination';
@@ -11,13 +11,7 @@ import '../styles.css';
 import '../../index.css'
 
 const AddFlight = () =>{
-
-    const DropDownContainer = styled("div")``;
-    const DropDownHeader = styled("div")``;
-    const DropDownListContainer = styled("div")``;
-    const DropDownList = styled("ul")``;
-    const ListItem = styled("li")``;
-
+    
     const [FLIGHT_CODE, setFlightCode] = useState('');
     const [AIRLINE_CODE, setAirlineCode] = useState('');
     const [ARRIVAL_DATE, setArrivalDate] = useState('');
@@ -25,8 +19,13 @@ const AddFlight = () =>{
     const [ARRIVAL_PLACE, setArrivalPlace] = useState('');
     const [DEPARTURE_PLACE, setDeparturePlace] = useState('');
 
-    const ref = useRef();
     const navigate = useNavigate();
+    const watch = useForm();
+
+
+    const goHome = () => {
+        navigate('/');
+    }
 
     const saveFlight = async (e) => {
       e.preventDefault();
@@ -43,16 +42,25 @@ const AddFlight = () =>{
 
     return (
       <div className='dashboard-content'>
-        <DashboardHeaderE />
+        <DashboardHeader btnText="Home" onClick={goHome}/>
           <form onSubmit={ saveFlight }>
           <table>
                 <div className="field">
                 <tr><td><label className="label">FlightType</label></td>
                     <td><select name="flightType" id="flightType">
                         <option value="">--Select Flight Type--</option>
-                        <option value="arr">Arrival</option>
-                        <option value="dep">Departure</option>
+                        <option value="Arrival">Arrival</option>
+                        <option value="Departure">Departure</option>
                     </select></td></tr>
+
+                    <tr><td><label className="label">Flight Code</label></td>
+                    <td><input 
+                        className="input"
+                        type="text"
+                        placeholder="Flight Code"
+                        value={ FLIGHT_CODE }
+                        onChange={ (e) => setFlightCode(e.target.value) }
+                    /></td></tr>
 
                     <tr><td><label className="label">Airline Code</label></td>
                     <td><input 
@@ -62,7 +70,6 @@ const AddFlight = () =>{
                         value={ AIRLINE_CODE }
                         onChange={ (e) => setAirlineCode(e.target.value) }
                     /></td></tr>
-
 
                     <tr><td><label className="label">Departure Place</label></td>
                     <td><input 
@@ -78,7 +85,7 @@ const AddFlight = () =>{
                     <td><input 
                         className="input"
                         type="text"
-                        placeholder="ARRIVAL_PLACE"
+                        placeholder="Arrival Place"
                         value={ ARRIVAL_PLACE }
                         onChange={ (e) => setArrivalPlace(e.target.value) }
                     /></td></tr>
@@ -93,7 +100,6 @@ const AddFlight = () =>{
                         onChange={ (e) => setDepartureDate(e.target.value) }
                     /></td></tr>
 
-
                     <tr><td><label className="label">Arrival Time</label></td>
                     <td><input 
                         className="input"
@@ -103,7 +109,7 @@ const AddFlight = () =>{
                         onChange={ (e) => setArrivalDate(e.target.value) }
                     /></td></tr>
 
-                <button className='dashbord-header-btn' onClick='/'>Add Flight</button>
+                <button className='btn-aup' onClick={saveFlight}>Add Flight</button>
 
                 </div>
                 </table>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from "axios";
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import {DashboardHeader, DashboardHeaderE} from '../../components/DashboardHeader/index.jsx';
+import DashboardHeader from '../../components/DashboardHeader/index.jsx';
 
 const UpdateFlight = () => {
     const [flights, setFlight] = useState([]);
@@ -48,7 +48,7 @@ const UpdateFlight = () => {
  
     return (
         <div>
-            <DashboardHeaderE />
+            <DashboardHeader />
             <form onSubmit={ updateFlight }>
                 <table>
                 <div className="field">
