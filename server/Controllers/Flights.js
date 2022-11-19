@@ -1,18 +1,6 @@
 import { Sequelize } from "sequelize";
 import {flight, gate} from "../Models/ProductModel.js";
 
-{/*export const getAllFlights = async (req, res) => {
-    try {
-        const flights = await flight.findAll({
-
-        });
-        console.log(flights)
-        res.json(flights);
-    } catch (error) {
-        res.json({ message: error.message });
-    }  
-}   */}
-
 export const getAllFlights = async (req, res) => {
     try {
         const flights = await flight.findAll({
@@ -23,9 +11,9 @@ export const getAllFlights = async (req, res) => {
                     FLIGHT_CODE: Sequelize.where(Sequelize.col("FLIGHTS.FLIGHT_CODE"), "=", Sequelize.col("GATE.FLIGHT_CODE"))
                 },
                 attributes: ["TERMINAL_NUMBER", "GATE_NUMBER"]
-            }]
+            }] 
         });
-        console.log(JSON.stringify(flights, null, 2))
+        //console.log(JSON.stringify(flights, null, 2))
         res.json(flights);
     } catch (error) {
         res.json({ message: error.message });
@@ -34,17 +22,15 @@ export const getAllFlights = async (req, res) => {
 
 export const getFlightById = async (req, res) => {
     try {
-        const flights = await flight.findAll({
+        const flights = await flight.findOne({
             where: {
-                FLIGHT_CODE: req.body.id
-            }
+                FLIGHT_CODE: req.params.id
+            } 
         });
-        res.json(flights[0]);
     } catch (error) {
         res.json({ message: error.message });
     }  
 }
- 
 
 export const AddFlight = async (req, res) => {
     try {
@@ -60,17 +46,15 @@ export const AddFlight = async (req, res) => {
 
 export const updateFlight = async (req, res) => {
     try {
-        await flight.update(req.body, 
+            await flight.update(req.body, 
             {
                 where: {
-                    FLIGHT_CODE: req.params.FLIGHT_CODE,
+                    FLIGHT_CODE: req.params.id,
                 }
             }
         );
         res.json({
             "message": "Flight Details Updated",
-            "req": req,
-            "res": res
         });
     } catch (error) {
         res.json({ message: error.message });

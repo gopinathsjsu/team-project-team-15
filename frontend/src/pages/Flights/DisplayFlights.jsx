@@ -75,10 +75,8 @@ const FlightsList = () => {
                 <thead>
                         <th>Flight Code</th>
                         <th>Airline Code</th>
-                        <th>Departure Place</th>
-                        <th>Arrival Place</th>
-                        <th>Departure Date</th>
-                        <th>Arrival Date</th>
+                        <th>Destination</th>
+                        <th>Departure Time</th>
                         <th>Terminal</th>
                         <th>Gate</th>
                         <th>Actions</th>
@@ -89,10 +87,8 @@ const FlightsList = () => {
                         <tr key={dep_flights.GATE}>
                             <td><span>{dep_flights.FLIGHT_CODE}</span></td>
                             <td><span>{dep_flights.AIRLINE_CODE}</span></td>
-                            <td><span>{dep_flights.DEPARTURE_PLACE}</span></td>
                             <td><span>{dep_flights.ARRIVAL_PLACE}</span></td>
                             <td><span>{dep_flights.DEPARTURE_DATE}</span></td>
-                            <td><span>{dep_flights.ARRIVAL_DATE}</span></td>
                             <td><span>{dep_flights.GATE.TERMINAL_NUMBER}</span></td>
                             <td><span>{dep_flights.GATE.GATE_NUMBER}</span></td>
                             <td><button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
@@ -122,10 +118,8 @@ const FlightsList = () => {
                 <thead>
                         <th>Flight Code</th>
                         <th>Airline Code</th>
-                        <th>Departure Place</th>
-                        <th>Arrival Place</th>
-                        <th>Departure Date</th>
-                        <th>Arrival Date</th>
+                        <th>Origin</th>
+                        <th>Arrival Time</th>
                         <th>Terminal</th>
                         <th>Gate</th>
                         <th>Baggage</th>
@@ -137,8 +131,6 @@ const FlightsList = () => {
                             <td><span>{arr_flights.FLIGHT_CODE}</span></td>
                             <td><span>{arr_flights.AIRLINE_CODE}</span></td>
                             <td><span>{arr_flights.DEPARTURE_PLACE}</span></td>
-                            <td><span>{arr_flights.ARRIVAL_PLACE}</span></td>
-                            <td><span>{arr_flights.DEPARTURE_DATE}</span></td>
                             <td><span>{arr_flights.ARRIVAL_DATE}</span></td>
                             <td><span>{arr_flights.FLIGHT_BAGGAGE}</span></td>
                             <td>

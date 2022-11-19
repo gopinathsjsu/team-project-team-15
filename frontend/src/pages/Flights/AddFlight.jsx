@@ -44,75 +44,72 @@ const AddFlight = () =>{
       <div className='dashboard-content'>
         <DashboardHeader btnText="Home" onClick={goHome}/>
           <form onSubmit={ saveFlight }>
-          <table>
                 <div className="field">
-                <tr><td><label className="label">FlightType</label></td>
-                    <td><select name="flightType" id="flightType">
+                <label className="label">FlightType</label>
+                    <select name="flightType" id="flightType">
                         <option value="">--Select Flight Type--</option>
                         <option value="Arrival">Arrival</option>
                         <option value="Departure">Departure</option>
-                    </select></td></tr>
+                    </select>
 
-                    <tr><td><label className="label">Flight Code</label></td>
-                    <td><input 
+                    <label className="label">Flight Code</label>
+                    <input 
                         className="input"
                         type="text"
                         placeholder="Flight Code"
                         value={ FLIGHT_CODE }
                         onChange={ (e) => setFlightCode(e.target.value) }
-                    /></td></tr>
+                    />
 
-                    <tr><td><label className="label">Airline Code</label></td>
-                    <td><input 
+                    <label className="label">Airline Code</label>
+                    <input 
                         className="input"
                         type="text"
                         placeholder="Airline Code"
                         value={ AIRLINE_CODE }
                         onChange={ (e) => setAirlineCode(e.target.value) }
-                    /></td></tr>
+                    />
 
-                    <tr><td><label className="label">Departure Place</label></td>
-                    <td><input 
+                    <label className="label">Departure Place</label>
+                    <input 
                         className="input"
                         type="text"
                         placeholder="Departure Place"
                         value={ DEPARTURE_PLACE }
                         onChange={ (e) => setDeparturePlace(e.target.value) }
-                    /></td></tr>
+                    />
 
 
-                    <tr><td><label className="label">Arrival Place</label></td>
-                    <td><input 
+                    <label className="label">Arrival Place</label>
+                    <input 
                         className="input"
                         type="text"
                         placeholder="Arrival Place"
                         value={ ARRIVAL_PLACE }
                         onChange={ (e) => setArrivalPlace(e.target.value) }
-                    /></td></tr>
+                    />
 
-
-                    <tr><td><label className="label">Departure Time</label></td>
-                    <td><input 
+                    <label className="label">Departure Time</label>
+                    <input 
                         className="input"
                         type="datetime-local"
                         placeholder="DEPARTURE_DATE"
                         value={ DEPARTURE_DATE }
                         onChange={ (e) => setDepartureDate(e.target.value) }
-                    /></td></tr>
+                    />
 
-                    <tr><td><label className="label">Arrival Time</label></td>
-                    <td><input 
+                    <label className="label">Arrival Time</label>
+                    <input 
                         className="input"
                         type="datetime-local"
                         placeholder="ARRIVAL_DATE"
                         value={ ARRIVAL_DATE }
                         onChange={ (e) => setArrivalDate(e.target.value) }
-                    /></td></tr>
+                    />
 
                 <button className='btn-aup' onClick={saveFlight}>Add Flight</button>
 
                 </div>
-                </table>
 
           </form>
       </div>

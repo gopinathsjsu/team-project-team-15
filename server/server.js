@@ -2,6 +2,7 @@ import express from "express";
 import db from "./config/database.js";
 import flightRoutes from "./routes/index.js";
 import cors from "cors";
+import cron from "node-cron";
  
 const app = express();
 
@@ -11,6 +12,11 @@ try {
 } catch (error) {
     console.error('Connection error:', error);
 }
+
+
+cron.schedule(' * * * * *', () => {
+  console.log('running a task every minute');
+});
 
 global.db = db;
 app.use(cors());
