@@ -24,7 +24,8 @@
     "react-scripts": "5.0.1",
     "sequelize": "^6.6.5",
     "styled-components": "^5.3.6",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "eslintrc": "^1.0.6"
   },
   "scripts": {
     "start": "react-scripts start",
