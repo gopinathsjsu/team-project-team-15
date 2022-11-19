@@ -65,7 +65,7 @@ export const deleteFlight = async (req, res) => {
     try {
         await flight.destroy({
             where: {
-                id: req.params.id
+                FLIGHT_CODE: req.params.id
             }
         });
         res.json({
