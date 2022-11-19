@@ -8,18 +8,3 @@ const db = new Sequelize('AIRLINE_SYSTEM', 'admin', 'admin202', {
 
 export default db;
 
-{/*
-const db = mysql.createConnection({
-    host: 'mysql-test.ch384qrfexh2.us-east-1.rds.amazonaws.com',
-    database: 'AIRLINE_SYSTEM',
-    port: 3306,
-    user: 'admin',
-    password: 'admin_123'
-});
-
-var mysql = require('mysql');
-
-export default db;
-
-*/}
-

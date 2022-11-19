@@ -40,6 +40,14 @@ const AddFlight = () =>{
       navigate("/");
     }
 
+    function SubmitButton(){
+        if (FLIGHT_CODE && AIRLINE_CODE){
+            <button className='btn-aup' onClick={saveFlight}>Add Flight</button>
+        }else{
+            return <button type="button" disabled>Button</button>
+        }
+    }
+
     return (
       <div className='dashboard-content'>
         <DashboardHeader btnText="Home" onClick={goHome}/>
@@ -106,9 +114,7 @@ const AddFlight = () =>{
                         value={ ARRIVAL_DATE }
                         onChange={ (e) => setArrivalDate(e.target.value) }
                     />
-
-                <button className='btn-aup' onClick={saveFlight}>Add Flight</button>
-
+                <SubmitButton/>
                 </div>
 
           </form>

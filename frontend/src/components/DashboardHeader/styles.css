@@ -48,18 +48,18 @@
 } 
 
 .btn-remove {
-    padding: 0.8em;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding: 0.1em;
+    padding-left: 1em;
+    padding-right: 1em;
     cursor: pointer;
     color: #FFFFFF;
     font-size: 0.9rem;
     font-weight: 700;
     border-radius: 8px;
     text-transform: uppercase;
-    border: 1px solid #015C92;
-    background-color: #015C92;
-} 
+    border: 1px solid #ffffff;
+    background-color: #cb2727;
+}
 
 
 .dashbord-header-btn:hover {

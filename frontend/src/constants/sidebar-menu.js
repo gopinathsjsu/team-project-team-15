@@ -1,5 +1,5 @@
 import DashboardIcon from '../assets/icons/dashboard.svg';
-import ProductIcon from '../assets/icons/product.svg';
+import AddFlight from '../assets/images/AddFlights.jpeg';
 import UserIcon from '../assets/icons/user.svg';
 
 const sidebar_menu = [
@@ -11,7 +11,7 @@ const sidebar_menu = [
     },
     {
         id: 2,
-        icon: ProductIcon,
+        icon: AddFlight,
         path: '/AddFlight',
         title: 'Add Flights',
     },
