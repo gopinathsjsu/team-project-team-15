@@ -26,6 +26,7 @@ import "../components/Login.css"
         let accountType  = event.target.accountType.value;
         let employeeID  = event.target.employeeId?.value;
         let email  = event.target.email.value;
+        let passport = event.target.passport.value;
 
         switch(accountType){
           case "customer":
@@ -40,7 +41,7 @@ import "../components/Login.css"
         }
     
         const data = {
-          name, password, accountType, email, employeeID
+          name, password, accountType, email, employeeID, passport
         };
         
     
@@ -78,6 +79,7 @@ import "../components/Login.css"
           <div><label>Name</label><input type="text" id="name"/></div>
           <div><label>Email</label><input type="text" id="email"/></div>
           <div><label>Password</label><input type="password" id="password"/></div>
+          <div><label>Passport</label><input type="passport" id="passport"/></div>
           <div >
           <label>Account Type</label>
             <select

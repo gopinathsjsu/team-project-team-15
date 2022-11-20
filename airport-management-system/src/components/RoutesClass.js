@@ -12,7 +12,7 @@ import DashboardPage from './Dashboard';
 
 
 function isLoggedIn(props) {
-    if (props.response.login.response?.isLogged) {
+    if (props.response.login.response?.isLogged || props.response.register.response?.isCreated) {
       console.log(props.response.login.response?.isLogged)
       return true;
     }

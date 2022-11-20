@@ -5,10 +5,9 @@ import * as types from '../actions'
 
 export function* registerSaga(payload) {
   try {
+    console.log("Saga")
     const response = yield call(registerUserService, payload);
-    yield [
-      put({ type: types.REGISTER_USER_SUCCESS, response })
-    ];
+    yield put({ type: types.REGISTER_USER_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.REGISTER_USER_ERROR, error });
   }

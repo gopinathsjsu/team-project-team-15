@@ -9,7 +9,8 @@ function DashboardPage (props){
   const navigate  = useNavigate();
     return (
       <div style={{textAlign:'center'}}>
-        {props.response.login.response.isSuccess}
+        {props.response.login.response?.isSuccess}
+        {props.response.register.response?.isSuccess}
         <div><button onClick={()=>{
           localStorage.removeItem('token');
   navigate('/login');props.dispatch(logoutUserAction());}}>Log out</button></div>
