@@ -26,6 +26,7 @@ import { connect } from 'react-redux';
       let name = event.target.name.value;
       let password = event.target.password.value;
       let accountType  = event.target.accountType.value;
+      localStorage.setItem('type', accountType);
 
       switch(accountType){
         case "customer":
@@ -56,9 +57,8 @@ import { connect } from 'react-redux';
       
       
       if (isSuccess) {
-        localStorage.removeItem('token');
-        localStorage.setItem('token', this.props.response.login.response.token);
         localStorage.setItem('user',this.props.response.login.response.isSuccess);
+        
       }
     }
       

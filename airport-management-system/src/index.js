@@ -10,8 +10,8 @@ import configureStore from './store/configureStore';
 import routes from './routes';
 import Home from './Home';
 import './index.css';
-import DashboardPage from './components/Dashboard';
 import RoutesClass from './components/RoutesClass';
+
 
 
 const store = configureStore();

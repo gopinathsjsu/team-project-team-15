@@ -5,12 +5,14 @@ import {
     getFlightById,
     AddFlight,
     updateFlight,
-    deleteFlight
+    deleteFlight,
+    getFlightByAirline
 } from "../Controllers/Flights.js";
 
 const router = express.Router();
  
 router.get('/', getAllFlights);
+router.get('/', getFlightByAirline);
 router.get('/:id', getFlightById);
 router.post('/', AddFlight);
 router.patch('/:id', updateFlight);

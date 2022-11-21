@@ -1,7 +1,16 @@
-const mysql = require('mysql');
-const express = require('express');
-const session = require('express-session');
-const path = require('path');
+import express from "express";
+import db from "./config/database.js";
+import flightRoutes from "./routes/index.js";
+import cors from "cors";
+import cron from "node-cron";
+import mysql from "mysql";
+import session  from "express-session";
+import path from "path";
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 
 const connection = mysql.createConnection({
 	host     : 'mysql202.cyykoabfoj9g.us-east-1.rds.amazonaws.com',
@@ -13,6 +22,24 @@ const connection = mysql.createConnection({
 
 const app = express();
 
+try {
+    await db.authenticate();
+    console.log('Database connected...');
+} catch (error) {
+    console.error('Connection error:', error);
+}
+
+
+cron.schedule(' * * * * *', () => {
+  console.log('running a task every minute');
+});
+
+global.db = db;
+app.use(cors());
+app.use(express.json());
+app.use('/flights', flightRoutes);
+app.listen(5001, () => console.log('Server running at port 5001'));
+
 app.use(session({
 	secret: 'secret',
 	resave: true,
@@ -21,7 +48,6 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'static')));
-const cors = require('cors');
 const corsOptions ={
     origin:'http://localhost:3001', 
     credentials:true,            //access-control-allow-credentials:true
@@ -40,12 +66,14 @@ app.post('/api/v1/login', function(request, response) {
 	// Ensure the input fields exists and are not empty
     console.log("Coming to BACKEND")
 	let table="PASSENGER_NAME";
+	let pass="PASSENGER_PASSWORD"
 	if(accountType != "PASSENGERS"){
 		table= "EMPLOYEE_NAME"
+		pass="EMPLOYEE_PASSWORD"
 	}
 	if (name && password && accountType) {
 		// Execute SQL query that'll select the account from the database based on the specified username and password
-		connection.query(`SELECT * FROM ${accountType} WHERE ${table} = ? AND PASSENGER_PASSWORD = ?`, [ name, password], function(error, results, fields) {
+		connection.query(`SELECT * FROM ${accountType} WHERE ${table} = ? AND ${pass} = ?`, [ name, password], function(error, results, fields) {
 			// If there is an issue with the query, output the error
 			if (error) {response.send({'isSuccess':error.code});}
 			// If the account exists

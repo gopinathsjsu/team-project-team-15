@@ -8,12 +8,17 @@ import Signup from './Signup';
 import App from '../App'
 import configureStore from '../store/configureStore';
 import Home from '../Home';
-import DashboardPage from './Dashboard';
+import AddFlight from '../pages/Flights/AddFlight.jsx';
+import UpdateFlight from '../pages/Flights/UpdateFlight.jsx';
+import FlightsList from "../pages/Flights/DisplayFlights.jsx";
+import sidebar_menu from '../constants/sidebar-menu';
+import './Dashboard.css';
+import SideBar from './Sidebar';
 
 
 function isLoggedIn(props) {
-    if (props.response.login.response?.isLogged || props.response.register.response?.isCreated) {
-      console.log(props.response.login.response?.isLogged)
+    if (localStorage.getItem('user') !== null) {
+      console.log(localStorage.getItem('token'))
       return true;
     }
     console.log("hello not logged")
@@ -28,15 +33,20 @@ class RoutesClass extends React.Component {
     render(){
         
         return (
-        
-    <BrowserRouter history= {useLocation}>
-    <Routes>
-    <Route path="/" element={<Home />} />
-    <Route exact path='/login' element={<Login/>} />
-    <Route exact path='/register' element={<Signup/>} />
-    <Route path='/dashboard' element={!isLoggedIn(this.props) ? <Navigate to='/login'><Login/> </Navigate>: <DashboardPage/>} />
-  </Routes>
-      </BrowserRouter>
+          
+          <BrowserRouter>
+              <Routes>
+              <Route path="/" element={<Home />} />
+              <Route exact path='/login' element={<Login/>} />
+              <Route exact path='/register' element={<Signup/>} />
+              <Route path='/dashboard' element={!isLoggedIn(this.props) ? <Navigate to='/login'><Login/> </Navigate>:
+                <FlightsList/>}/>
+              <Route exact path="/AddFlight" element={< AddFlight/>} />
+              <Route exact path="/update/:FLIGHT_CODE" element={< UpdateFlight/>} />
+              <Route exact path="/profile" element={<div></div>} />
+              </Routes>
+    </BrowserRouter>
+      
 
   )
     };

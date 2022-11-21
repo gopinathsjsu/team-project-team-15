@@ -2,14 +2,17 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert'; 
 import axios from "axios";
-
+import { connect } from 'react-redux';
 import '../../index.css'
 import DashboardHeader from '../../components/DashboardHeader/index.jsx';
 import {calculateRange, sliceData} from '../../utils/table-pagination';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import SideBar from '../../components/Sidebar';
+import sidebar_menu from '../../constants/sidebar-menu';
+import { logoutUserAction } from '../../actions/authenticationAction';
 
 
-const FlightsList = () => {
+const FlightsList = (props) => {
     const [dep_flights, setDepFlight] = useState([]);
     const [arr_flights, setArrFlight] = useState([]);
     const [flights, setFlights] = useState([]);
@@ -96,9 +99,10 @@ const FlightsList = () => {
     } 
 
     return (
+         
         <div className='dashboard-content'>
             <DashboardHeader btnText="Add a Flight" onClick={AddFlight} />
-
+            
             <div className='dashboard-content-container'>
                 <div className='dashboard-content-header'>
                     <h3>Departure Flights</h3>
@@ -132,8 +136,8 @@ const FlightsList = () => {
                             <td><span>{dep_flights.DEPARTURE_DATE}</span></td>
                             <td><span>{dep_flights.GATE.TERMINAL_NUMBER}</span></td>
                             <td><span>{dep_flights.GATE.GATE_NUMBER}</span></td>
-                            <td><button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
-                                <button className='btn-remove' onClick={() => deletePopup(dep_flights.FLIGHT_CODE)}>Delete</button></td>
+                            {(localStorage.getItem('type') != "customer" ) ? <td><button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
+                                <button className='btn-remove' onClick={() => deletePopup(dep_flights.FLIGHT_CODE)}>Delete</button></td> : null}
                         </tr>
                     ) : null
                 )}
@@ -172,9 +176,11 @@ const FlightsList = () => {
                             <td><span>{arr_flights.AIRLINE_CODE}</span></td>
                             <td><span>{arr_flights.DEPARTURE_PLACE}</span></td>
                             <td><span>{arr_flights.ARRIVAL_DATE}</span></td>
+                            <td><span>{arr_flights.TERMINAL_NUMBER}</span></td>
+                            <td><span>{arr_flights.GATE_NUMBER}</span></td>
                             <td><span>{arr_flights.FLIGHT_BAGGAGE}</span></td>
-                            <td><button className='btn-edit' onClick={ () => updateFlight(arr_flights.FLIGHT_CODE) }>update</button>
-                            <button className='btn-remove' onClick={() => deletePopup(arr_flights.FLIGHT_CODE)}>Delete</button></td>
+                            {(localStorage.getItem('type') != "customer" ) ? <td><button className='btn-edit' onClick={ () => updateFlight(arr_flights.FLIGHT_CODE) }>update</button>
+                            <button className='btn-remove' onClick={() => deletePopup(arr_flights.FLIGHT_CODE)}>Delete</button></td> : null}
                         </tr>
                     ))}
                 </tbody>
@@ -197,8 +203,9 @@ const FlightsList = () => {
                 }     
         </div>
         </div>
+        
     )
 }
- 
-export default FlightsList
+const mapStateToProps = (response) => ({response});
+export default connect(mapStateToProps)(FlightsList);
 

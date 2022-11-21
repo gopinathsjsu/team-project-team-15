@@ -20,6 +20,7 @@ export const getAllFlights = async (req, res) => {
     }  
 }
 
+
 export const getFlightById = async (req, res) => {
     try {
         const flights = await flight.findOne({
