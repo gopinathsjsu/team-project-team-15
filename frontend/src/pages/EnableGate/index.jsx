@@ -1,9 +1,34 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from "react";
+
+import DropdownList from '../../utils/dropdown/Dropdowndup';
+import axios from "axios";
+
+const DropdownSmart = () => {
+  const [content, setContents] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5001/gates/EnabledGates").then((res) => {
+      //   let a = res.data.df;
+      //   setContents(a);
+      console.log(res.data);
+      setContents(res.data);
+    });
+  }, []);
+
+  return <DropdownList content={content}></DropdownList>;
+};
+
+export default DropdownSmart;
+
+
+/*import React, {useState, useEffect} from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
 import Dropdown from '../../utils/dropdown/Dropdown';
 import '../styles.css';
 
 function EnableGate() {
+    
+    
     const options = [
         { value: "green", label: "Green" },
         { value: "blue", label: "Blue" },
@@ -53,4 +78,4 @@ function EnableGate() {
     )
 }
 
-export default EnableGate;
+export default EnableGate;*/
