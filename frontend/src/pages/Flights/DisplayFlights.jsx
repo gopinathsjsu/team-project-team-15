@@ -20,7 +20,7 @@ const FlightsList = () => {
     }, []);
 
     const getFlights = async (hours) => {
-        const response = await axios.get("http://localhost:5001/flights");
+        const response = await axios.get("http://localhost:5001/api/v1/flights");
         const depResponse = response.data.filter(response => response.DEPARTURE_PLACE === 'SFO')
                                          .filter(response => 0 < moment(response.DEPARTURE_DATE).diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
         const arrResponse = response.data.filter(response => response.ARRIVAL_PLACE === 'SFO')
@@ -30,6 +30,10 @@ const FlightsList = () => {
         setDepFlight(depResponse);
         setFlights(response);
     }
+
+    const depflightsdata = dep_flights.map(function(flights){ return [flights['FLIGHT_CODE'],flights['DEPARTURE_DATE']] });
+    const arrflightsdata = dep_flights.map(function(flights){ return [flights['FLIGHT_CODE'],flights['ARRIVAL_DATE']] });
+    console.log(depflightsdata);
 
     const goHome = async() =>{ 
         getFlights(150);
@@ -52,14 +56,14 @@ const FlightsList = () => {
     }
 
     const deleteFlight = async (FLIGHT_CODE) =>{ 
-        await axios.delete(`http://localhost:5001/flights/${FLIGHT_CODE}`);
+        await axios.delete(`http://localhost:5001/api/v1/flights/${FLIGHT_CODE}`);
         getFlights(15000);
     }
 
     const deletePopup = async(FLIGHT_CODE) => {
 
     confirmAlert({
-        title: 'Are you sure to delete the flight?',
+        title: 'Confirm to Delete',
         message: 'Are you sure to delete the flight?',
         buttons: [
         {

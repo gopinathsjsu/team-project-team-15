@@ -16,7 +16,7 @@ const UpdateFlight = () => {
     const navigate = useNavigate();
     const updateFlight = async (e) => {
         e.preventDefault();
-        await axios.patch(`http://localhost:5001/flights/${FLIGHT_CODE}`,{
+        await axios.patch(`http://localhost:5001/api/v1/flights/${FLIGHT_CODE}`,{
             FLIGHT_CODE: FLIGHT_CODE,
             AIRLINE_CODE: AIRLINE_CODE,
             ARRIVAL_PLACE: ARRIVAL_PLACE,
@@ -32,12 +32,12 @@ const UpdateFlight = () => {
     }, []);
  
     const getFlights = async () => {
-        const response = await axios.get('http://localhost:5001/flights');
+        const response = await axios.get('http://localhost:5001/api/v1/flights');
         setFlight(response.data);
     }
 
     const getFlightById = async () => {
-        const response1 = await axios.get(`http://localhost:5001/flights/${FLIGHT_CODE}`);
+        const response1 = await axios.get(`http://localhost:5001/api/v1/flights/${FLIGHT_CODE}`);
         setFlightCode(response1.data.FLIGHT_CODE);
         setAirlineCode(response1.data.AIRLINE_CODE);
         setArrivalDate(response1.data.ARRIVAL_DATE);

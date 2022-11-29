@@ -43,6 +43,21 @@ const gate = db.define('GATES',{
     freezeTableName: true
 });
 
-flight.hasOne(gate);
+const baggage = db.define('BAGGAGES',{
+    FLIGHT_CODE:{
+        type: DataTypes.STRING
+    },
+    TERMINAL_NUMBER:{
+        type: DataTypes.INTEGER
+    },
+    BAGGAGE_NUMBER:{
+        type: DataTypes.INTEGER
+    }
+},{
+    freezeTableName: true
+});
 
-export {flight, gate};
+flight.hasOne(gate);
+flight.hasOne(baggage);
+
+export {flight, gate, baggage};

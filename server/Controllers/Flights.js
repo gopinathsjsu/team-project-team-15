@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import {flight, gate} from "../Models/ProductModel.js";
+import {flight, gate} from "../Models/flightsModel.js";
 
 export const getAllFlights = async (req, res) => {
     try {
@@ -13,7 +13,6 @@ export const getAllFlights = async (req, res) => {
                 },
                 attributes: ["TERMINAL_NUMBER", "GATE_NUMBER"],
             }], 
-            required: false,
             order: [
                 ["DEPARTURE_DATE",'ASC'],
                 ["ARRIVAL_DATE", 'ASC']
@@ -33,6 +32,8 @@ export const getFlightById = async (req, res) => {
                 FLIGHT_CODE: req.params.id
             } 
         });
+        res.json(flights);
+        console.log(JSON.stringify(flights, null, 2))
     } catch (error) {
         res.json({ message: error.message });
     }  

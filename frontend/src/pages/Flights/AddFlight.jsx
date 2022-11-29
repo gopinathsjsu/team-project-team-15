@@ -29,7 +29,7 @@ const AddFlight = () =>{
 
     const saveFlight = async (e) => {
       e.preventDefault();
-      await axios.post('http://localhost:5001/flights',{
+      await axios.post('http://localhost:5001/api/v1/flights',{
           FLIGHT_CODE: FLIGHT_CODE,
           AIRLINE_CODE: AIRLINE_CODE,
           ARRIVAL_PLACE: ARRIVAL_PLACE,
@@ -37,6 +37,7 @@ const AddFlight = () =>{
           ARRIVAL_DATE: ARRIVAL_DATE,
           DEPARTURE_DATE: DEPARTURE_DATE
       });
+      
       navigate("/");
     }
 

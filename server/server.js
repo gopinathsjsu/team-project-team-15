@@ -1,6 +1,6 @@
 import express, { request } from "express";
 import db from "./config/database.js";
-import flightRoutes from "./routes/index.js";
+import Routes from "./routes/index.js";
 import cors from "cors";
 const app = express();
 
@@ -15,5 +15,5 @@ const app = express();
 global.db = db;
 app.use(cors());
 app.use(express.json());
-app.use('/flights', flightRoutes);
+app.use('/', Routes);
 app.listen(5001, () => console.log('Server running at port 5001'));
