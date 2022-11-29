@@ -7,7 +7,6 @@ import '../../index.css'
 import DashboardHeader from '../../components/DashboardHeader/index.jsx';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import moment from "moment";
-import data from '../../tmp/data.json';
 
 
 const FlightsList = () => {
