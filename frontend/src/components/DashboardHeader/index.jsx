@@ -4,7 +4,7 @@ import './styles.css';
 import SettingsIcon from '../../assets/icons/settings.svg';
 import { useNavigate } from 'react-router-dom';
 
-function DashboardHeader ({ btnText, onClick }) {
+function DashboardHeader ({ btnTextH, btnText1, btnText2, btnText4, onClickH, onClick1, onClick2, onClick4 }) {
 
     const navigate = useNavigate();
     const profile = () =>{
@@ -12,8 +12,20 @@ function DashboardHeader ({ btnText, onClick }) {
     }
     return(
         <div className='dashbord-header-container'>
-            {btnText && 
-                <button className='dashbord-header-btn' onClick={onClick}>{btnText}</button>
+            {btnTextH && 
+                <button className='dashbord-header-btn' onClick={onClickH}>{btnTextH}</button>
+            }
+            &nbsp;&nbsp;&nbsp;
+            {btnText1 && 
+                <button className='dashbord-header-btn' onClick={onClick1}>{btnText1}</button>
+            }
+            &nbsp;&nbsp;&nbsp;
+            {btnText2 && 
+                <button className='dashbord-header-btn' onClick={onClick2}>{btnText2}</button>
+            }
+            &nbsp;&nbsp;&nbsp;
+            {btnText4 && 
+                <button className='dashbord-header-btn' onClick={onClick4}>{btnText4}</button>
             }
             <div className='dashbord-header-right'>
                 <img 

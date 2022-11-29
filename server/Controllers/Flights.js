@@ -4,17 +4,23 @@ import {flight, gate} from "../Models/ProductModel.js";
 export const getAllFlights = async (req, res) => {
     try {
         const flights = await flight.findAll({
+            attributes: ["FLIGHT_CODE", "AIRLINE_CODE", "DEPARTURE_PLACE", "ARRIVAL_PLACE", "DEPARTURE_DATE", "ARRIVAL_DATE", "FLIGHT_BAGGAGE"],
             include: [{
-                attributes: ["FLIGHT_CODE", "AIRLINE_CODE", "DEPARTURE_PLACE", "ARRIVAL_PLACE", "DEPARTURE_DATE", "ARRIVAL_DATE", "FLIGHT_BAGGAGE"],
                 model: gate,
+                required: false,
                 on: {
                     FLIGHT_CODE: Sequelize.where(Sequelize.col("FLIGHTS.FLIGHT_CODE"), "=", Sequelize.col("GATE.FLIGHT_CODE"))
                 },
-                attributes: ["TERMINAL_NUMBER", "GATE_NUMBER"]
-            }] 
+                attributes: ["TERMINAL_NUMBER", "GATE_NUMBER"],
+            }], 
+            required: false,
+            order: [
+                ["DEPARTURE_DATE",'ASC'],
+                ["ARRIVAL_DATE", 'ASC']
+            ],
         });
-        //console.log(JSON.stringify(flights, null, 2))
         res.json(flights);
+        console.log(JSON.stringify(flights, null, 2))
     } catch (error) {
         res.json({ message: error.message });
     }  
