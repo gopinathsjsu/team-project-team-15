@@ -2,32 +2,85 @@ import fs from "fs"
 import moment from "moment";
 import axios from "axios";
 
-export function CronAddFlight(flight, date){
-    fs.readFile("./Controllers/flights.json", (err, data) => {
-        if (err) throw err;
-        let flights = JSON.parse(data);
-        
-        function insertFlight(key,value,obj,pos){
-            return Object.keys(obj).reduce((ac,a,i) => {
-              if(i === pos) ac[key] = value;
-              ac[a] = obj[a]; 
-              return ac;
-            },{})
-          }
-          
-        var i = 0;
-        for (const [key, value] of Object.entries(flights)) {
-            if (value > date){
-                flights = insertFlight(flight,date,flights,i);
-                break;
-            }
-            i += 1;
-        }
-        //console.log(flights);
-        fs.writeFileSync("./Controllers/flights.json",JSON.stringify(flights), (err) => console.log(err));
+export function maintaintemp(){
+  const getflights = async() => {
+    let flights = await axios.get(`http://localhost:5001/api/v1/flights`);
+
+    var dflights = flights.data.map(function(flights){ 
+      if (flights['DEPARTURE_DATE']){
+        return [flights["FLIGHT_CODE"],flights['DEPARTURE_DATE']]
+      }else{
+        return [flights["FLIGHT_CODE"], flights['ARRIVAL_DATE']]
+      }
     });
+    dflights.sort(function(a, b) {
+      return moment(a[1]) - moment(b[1]);
+    });
+    console.log(JSON.stringify(dflights, null, 2));
+
+    flights = dflights.reduce((p,c)=>(p[c[0]] = c[1], p), {});
+    console.log(flights);
+    fs.writeFileSync("./Controllers/flights.json",JSON.stringify(flights), (err) => console.log(err));
+  }
+  getflights();
 }
 
+export function CronAddFlight(flight, date){
+  fs.readFile("./Controllers/flights.json", (err, data) => {
+      if (err) throw err;
+      let flights = JSON.parse(data);
+
+      function insertFlight(key,value,obj,pos){
+          return Object.keys(obj).reduce((ac,a,i) => {
+            if(i === pos) ac[key] = value;
+            ac[a] = obj[a]; 
+            return ac;
+          },{})
+        }
+
+      var i = 0;
+      for (const [key, value] of Object.entries(flights)) {
+          if (value > date){
+              flights = insertFlight(flight,date,flights,i);
+              break;
+          }
+          i += 1;
+      }
+      fs.writeFileSync("./Controllers/flights.json",JSON.stringify(flights), (err) => console.log(err));
+  });
+}
+
+export function CronUpdateFlight(flight, date){
+
+  fs.readFile("./Controllers/flights.json", (err, data) => {
+      if (err) throw err;
+      let flights = JSON.parse(data);
+      let [upcomflight,upcomtime] = Object.entries(flights)[0];
+      
+      delete flights[upcomflight];
+      console.log(flights)
+      fs.writeFileSync("./Controllers/flights.json",JSON.stringify(flights), (err) => console.log(err));
+    
+      //RemoveFlightFromCron(flights, upcomflight);
+      function insertFlight(key,value,obj,pos){
+          return Object.keys(obj).reduce((ac,a,i) => {
+            if(i === pos) ac[key] = value;
+            ac[a] = obj[a]; 
+            return ac;
+          },{})
+        }
+
+      var i = 0;
+      for (const [key, value] of Object.entries(flights)) {
+          if (value > date){
+              flights = insertFlight(flight,date,flights,i);
+              break;
+          }
+          i += 1;
+      }
+      fs.writeFileSync("./Controllers/flights.json",JSON.stringify(flights), (err) => console.log(err));
+  });
+}
 
 export function cronfunction(){
   const AssignGate = async(upcomflight) => {
@@ -84,3 +137,30 @@ export function cronfunction(){
   });
 }
 
+
+{/*
+    const dflights = flights.data.map(function(flights){ 
+      if (flights['DEPARTURE_DATE']){
+        return { "FLIGHT_CODE": flights["FLIGHT_CODE"], "DATE": flights['DEPARTURE_DATE'].toString()} 
+      }else{
+        return { "FLIGHT_CODE": flights["FLIGHT_CODE"], "DATE": flights['ARRIVAL_DATE'].toString()} 
+      }
+    });
+
+
+        flights.sort(function(a, b) {
+      return moment(a) - moment(b);
+
+
+
+      let items = Object.keys(flights).map(function(key) {
+      return [key, flights[key]];
+    });
+    items.sort(function(a, b) {
+        return moment(a[1]) - moment(b[1]);
+    });
+
+      if (flights['DEPARTURE_DATE']){ dflights[flights["FLIGHT_CODE"]] = flights['DEPARTURE_DATE'];
+      }else{ dflights[flights["FLIGHT_CODE"]] = flights['ARRIVAL_DATE'];}
+    });   
+*/}

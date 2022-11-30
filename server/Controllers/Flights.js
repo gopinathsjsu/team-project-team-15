@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import {flight, gate} from "../Models/flightsModel.js";
-import { CronAddFlight } from "./SchedulerFile.js";
+import { CronAddFlight, CronUpdateFlight } from "./SchedulerFile.js";
 
 export const getAllFlights = async (req, res) => {
     try {
@@ -33,8 +33,13 @@ export const getFlightById = async (req, res) => {
                 FLIGHT_CODE: req.params.id
             } 
         });
-        res.json(flights);
         console.log(JSON.stringify(flights, null, 2))
+        if (flights.DEPARTURE_DATE){
+            //CronAddFlight(flights.FLIGHT_CODE, flights.DEPARTURE_DATE.toISOString());
+        }else{
+            //CronAddFlight(flights.FLIGHT_CODE, flights.ARRIVAL_DATE.toISOString());
+        }
+        res.json(flights);
     } catch (error) {
         res.json({ message: error.message });
     }  
@@ -48,7 +53,7 @@ export const AddFlight = async (req, res) => {
             "message": "Added new Flight"
         });
         console.log(req.body);
-        //CronAddFlight(flights.FLIGHT_CODE, flights.DEPARTURE_DATE.toISOString());
+        CronAddFlight(req.body.FLIGHT_CODE, req.body.DEPARTURE_DATE.toISOString());
     } catch (error) {
         res.json({ message: error.message });
     }  
@@ -62,7 +67,7 @@ export const updateFlight = async (req, res) => {
                 FLIGHT_CODE: req.params.id,
             }
         });
-        //CronUpdateFlight(flights.FLIGHT_CODE, flights.DEPARTURE_DATE.toISOString());
+        CronUpdateFlight(flights.FLIGHT_CODE, flights.DEPARTURE_DATE.toISOString());
         res.json({
             "message": "Flight Details Updated",
         });

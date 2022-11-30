@@ -3,7 +3,7 @@ import db from "./config/database.js";
 import Routes from "./routes/index.js";
 import cors from "cors";
 import cron from "node-cron";
-import { cronfunction } from "./Controllers/SchedulerFile.js";
+import { cronfunction, maintaintemp } from "./Controllers/SchedulerFile.js";
 
 const app = express();
 
@@ -14,8 +14,9 @@ try {
     console.error('Connection error:', error);
 }
 
+maintaintemp();
 cron.schedule("*/20 * * * * *", () => {
-  cronfunction();
+  //cronfunction();
 });
 
 global.db = db;

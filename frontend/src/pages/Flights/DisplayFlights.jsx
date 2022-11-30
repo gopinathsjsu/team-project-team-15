@@ -21,6 +21,7 @@ const FlightsList = () => {
 
     const getFlights = async (hours) => {
         const response = await axios.get("http://localhost:5001/api/v1/flights");
+        console.log(response);
         setFlights(response.data);
         const depResponse = response.data.filter(response => response.DEPARTURE_PLACE === 'SFO')
                                          .filter(response => 0 < moment(response.DEPARTURE_DATE).diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
@@ -29,11 +30,7 @@ const FlightsList = () => {
         setArrFlight(arrResponse);
         setDepFlight(depResponse);
     }
-//    const depflightsdata = dep_flights.map(function(flights){ return { [flights["FLIGHT_CODE"]]: flights['DEPARTURE_DATE']} });
-//    const arrflightsdata = arr_flights.map(function(flights){ return { [flights['FLIGHT_CODE']]: flights['ARRIVAL_DATE']} });
-//    console.log(depflightsdata);
-//    console.log(arrflightsdata.concat(depflightsdata))
-    
+        
     const goHome = async() =>{ 
         getFlights(15000);
     }
