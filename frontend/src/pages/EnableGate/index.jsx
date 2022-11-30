@@ -1,3 +1,99 @@
+import { CookieTwoTone } from "@mui/icons-material";
+import { Autocomplete, Container, TextField, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import DashboardHeader from '../../components/DashboardHeader';
+
+function App() {
+  const [data, setData] = useState([]);
+  const [getTerminal, setTerminal] = useState([]);
+  const [getGate, setGate] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:5001/gates/GroupGates"
+      )
+      .then((response) => {
+        // console.log(response);
+        setData(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const terminal = [...new Set(data.map((item) => item.TERMINAL_NUMBER))];
+  // console.log(terminal);
+
+  // console.log(data);
+
+  const handleTerminal = (event, value) => {
+    let gates = data.filter((gate) => gate.TERMINAL_NUMBER === value);
+    gates = [...new Set(gates.map((item) => item.GATE_NUMBER))];
+    gates.sort();
+
+    setGate(gates);
+  };
+
+  return (
+    <Container>
+        <div className='dashboard-content'>
+            <DashboardHeader
+                btnText="Home" />
+           
+            <div className='dashboard-content-dropdown'>
+                {/* <table> */}
+                    <div className='dropdown'>
+                        <td><label>Select Terminal :</label></td>
+                        {/* <Typography>Dependent Select Field</Typography> */}
+                        <Autocomplete style={{width: '120px'}}
+                          onChange={(event, value) => handleTerminal(event, value)}
+                          id="terminal"
+                          getOptionLabel={(terminal) => `${terminal}`}
+                          options={terminal}
+                          isOptionEqualToValue={(option, value) => option.GATE_NUMBER === value.GATE_NUMBER}
+                          noOptionsText={"No Available Data"}
+                          renderOption={(props, terminal) => (
+                            <Box component="li" {...props} key={terminal} value={getTerminal}>
+                              {terminal}
+                            </Box>
+                          )}
+                          renderInput={(params) => <TextField {...params} label="Terminal" />}
+                        />
+                    </div>
+                    <div className='dropdown'>
+                        <td><label>Select gate to be enabled :</label></td>
+                        <Autocomplete style={{width: '100px'}}
+                          id="gate"
+                          getOptionLabel={(getGate) => `${getGate}`}
+                          options={getGate}
+                          isOptionEqualToValue={(option, value) => option.GATE_NUMBER === value.GATE_NUMBER}
+                          noOptionsText={"No Available User"}
+                          renderOption={(props, getGate) => (
+                            <Box component="li" {...props} key={getGate}>
+                              {getGate}
+                            </Box>
+                          )}
+                          renderInput={(params) => <TextField {...params} label="Gate" />}
+                        />
+                    </div>
+                    <div>
+                    <button className='dashbord-btn' > Enable </button>
+                    <button className='dashbord-btn' > Cancel </button>
+                </div>
+                {/* </table> */}
+            </div>
+           
+        </div>
+                        {/* <Autocomplete /> */}
+    </Container>
+  );
+}
+
+export default App;
+
+/* -----------------------------------------------------------
 import React, { useEffect, useState } from "react";
 
 import DropdownList from '../../utils/dropdown/Dropdowndup';
@@ -7,7 +103,7 @@ const DropdownSmart = () => {
   const [content, setContents] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5001/gates/EnabledGates").then((res) => {
+    axios.get("http://localhost:5001/gates/GroupGates").then((res) => {
       //   let a = res.data.df;
       //   setContents(a);
       console.log(res.data);
@@ -19,7 +115,7 @@ const DropdownSmart = () => {
 };
 
 export default DropdownSmart;
-
+---------------------------------------------------------------------------------------*/
 
 /*import React, {useState, useEffect} from 'react';
 import DashboardHeader from '../../components/DashboardHeader';

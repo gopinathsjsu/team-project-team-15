@@ -197,11 +197,8 @@ td span {
     background-color: white;
     border: none;
     border-radius: 10px;
-    padding: 20em;
-    gap:10px;
     overflow: auto;
     text-align: center;
-    column-gap: 20px;
     align-items: center;
     justify-content:space-around ;*/
 }
