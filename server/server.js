@@ -2,15 +2,21 @@ import express, { request } from "express";
 import db from "./config/database.js";
 import Routes from "./routes/index.js";
 import cors from "cors";
+import cron from "node-cron";
+import { cronfunction } from "./Controllers/SchedulerFile.js";
+
 const app = express();
 
-  try {
+try {
     await db.authenticate();
     console.log('Database connected...');
 } catch (error) {
     console.error('Connection error:', error);
 }
 
+cron.schedule("*/20 * * * * *", () => {
+  cronfunction();
+});
 
 global.db = db;
 app.use(cors());

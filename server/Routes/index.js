@@ -9,19 +9,21 @@ import {
 } from "../Controllers/Flights.js";
 
 import { 
-    getAllGates,
     randomGate,
+    getEnabledGates,
+    getDisabledGates,
+    getGatebyID,
     assignGate,
     unassignGate,
     enableGate,
-    disableGate
+    disableGate, 
 } from "../Controllers/Gates.js";
 
 import { 
     getAllBaggages,
     randomBaggage,
-//    assignBaggage,
-//    dismissBaggage
+    assignBaggage,
+    dismissBaggage
 } from "../Controllers/Baggages.js";
 
 const app = express.Router();
@@ -32,8 +34,10 @@ app.post('/api/v1/flights/', AddFlight);
 app.patch('/api/v1/flights/:id', updateFlight);
 app.delete('/api/v1/flights/:id', deleteFlight);
 
-app.get('/api/v1/gates', getAllGates);
 app.get('/api/v1/rgate', randomGate);
+app.get('/api/v1/enabledgates', getEnabledGates);
+app.get('/api/v1/disabledgates', getDisabledGates);
+app.get('/api/v1/gates/:id', getGatebyID);
 app.post('/api/v1/assigngate/:terminal/:gate', assignGate);
 app.post('/api/v1/unassigngate/:terminal/:gate', unassignGate);
 app.post('/api/v1/enablegate/:terminal/:gate', enableGate);
@@ -41,9 +45,7 @@ app.post('/api/v1/disablegate/:terminal/:gate', disableGate);
 
 app.get('/api/v1/baggages', getAllBaggages);
 app.get('/api/v1/rbaggages', randomBaggage);
-{/*
 app.post('/api/v1/assignBaggage/:terminal/:baggage', assignBaggage);
 app.post('/api/v1/unassignBaggage/:terminal/:baggage', dismissBaggage);
-*/}
  
 export default app;

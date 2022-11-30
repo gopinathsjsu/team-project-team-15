@@ -21,22 +21,21 @@ const FlightsList = () => {
 
     const getFlights = async (hours) => {
         const response = await axios.get("http://localhost:5001/api/v1/flights");
+        setFlights(response.data);
         const depResponse = response.data.filter(response => response.DEPARTURE_PLACE === 'SFO')
                                          .filter(response => 0 < moment(response.DEPARTURE_DATE).diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
         const arrResponse = response.data.filter(response => response.ARRIVAL_PLACE === 'SFO')
                                          .filter(response => 0 < moment(response.ARRIVAL_DATE).diff(moment(),'hours') && moment(response.ARRIVAL_DATE).diff(moment(),'hours') <= hours);
-        
         setArrFlight(arrResponse);
         setDepFlight(depResponse);
-        setFlights(response);
     }
-
-    const depflightsdata = dep_flights.map(function(flights){ return [flights['FLIGHT_CODE'],flights['DEPARTURE_DATE']] });
-    const arrflightsdata = dep_flights.map(function(flights){ return [flights['FLIGHT_CODE'],flights['ARRIVAL_DATE']] });
-    console.log(depflightsdata);
-
+//    const depflightsdata = dep_flights.map(function(flights){ return { [flights["FLIGHT_CODE"]]: flights['DEPARTURE_DATE']} });
+//    const arrflightsdata = arr_flights.map(function(flights){ return { [flights['FLIGHT_CODE']]: flights['ARRIVAL_DATE']} });
+//    console.log(depflightsdata);
+//    console.log(arrflightsdata.concat(depflightsdata))
+    
     const goHome = async() =>{ 
-        getFlights(150);
+        getFlights(15000);
     }
 
     const Next1hr = async() =>{ 
@@ -48,7 +47,7 @@ const FlightsList = () => {
     }
 
     const Next4hr = async() =>{ 
-        getFlights(150);
+        getFlights(1500);
     }
 
     const updateFlight = async (FLIGHT_CODE) =>{ 
@@ -112,8 +111,8 @@ const FlightsList = () => {
                             <td><span>{dep_flights.AIRLINE_CODE}</span></td>
                             <td><span>{dep_flights.ARRIVAL_PLACE}</span></td>
                             <td><span>{moment(dep_flights.DEPARTURE_DATE).utc().format('YYYY-MM-DD kk:mm:ss')}</span></td>
-                            <td><span>{dep_flights.GATE.TERMINAL_NUMBER}</span></td>
-                            <td><span>{dep_flights.GATE.GATE_NUMBER}</span></td>
+                            <td><span></span></td>
+                            <td><span></span></td>
                             <td><button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
                                 <button className='btn-remove' onClick={() => deletePopup(dep_flights.FLIGHT_CODE)}>Delete</button></td>
                         </tr>
@@ -151,6 +150,8 @@ const FlightsList = () => {
                             <td><span>{arr_flights.AIRLINE_CODE}</span></td>
                             <td><span>{arr_flights.DEPARTURE_PLACE}</span></td>
                             <td><span>{moment(arr_flights.ARRIVAL_DATE).utc().format('YYYY-MM-DD kk:mm:ss')}</span></td>
+                            <td><span></span></td>
+                            <td><span></span></td>
                             <td><span>{arr_flights.FLIGHT_BAGGAGE}</span></td>
                             <td><button className='btn-edit' onClick={ () => updateFlight(arr_flights.FLIGHT_CODE) }>update</button>
                             <button className='btn-remove' onClick={() => deletePopup(arr_flights.FLIGHT_CODE)}>Delete</button></td>
@@ -162,6 +163,6 @@ const FlightsList = () => {
         </div>
     )
 }
- 
+
 export default FlightsList
 

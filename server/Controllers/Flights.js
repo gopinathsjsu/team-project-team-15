@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import {flight, gate} from "../Models/flightsModel.js";
+import { CronAddFlight } from "./SchedulerFile.js";
 
 export const getAllFlights = async (req, res) => {
     try {
@@ -46,6 +47,8 @@ export const AddFlight = async (req, res) => {
         res.json({
             "message": "Added new Flight"
         });
+        console.log(req.body);
+        //CronAddFlight(flights.FLIGHT_CODE, flights.DEPARTURE_DATE.toISOString());
     } catch (error) {
         res.json({ message: error.message });
     }  
@@ -53,13 +56,13 @@ export const AddFlight = async (req, res) => {
 
 export const updateFlight = async (req, res) => {
     try {
-            await flight.update(req.body, 
-            {
-                where: {
-                    FLIGHT_CODE: req.params.id,
-                }
+        await flight.update(req.body, 
+        {
+            where: {
+                FLIGHT_CODE: req.params.id,
             }
-        );
+        });
+        //CronUpdateFlight(flights.FLIGHT_CODE, flights.DEPARTURE_DATE.toISOString());
         res.json({
             "message": "Flight Details Updated",
         });

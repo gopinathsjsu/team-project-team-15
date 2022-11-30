@@ -1,17 +1,6 @@
 import gate from "../Models/gatesModel.js";
 import { Sequelize } from "sequelize";
 
-export const getAllGates = async (req, res) => {
-    try {
-        const gates = await gate.findAll({
-            attributes: ["ID", "TERMINAL_NUMBER", "GATE_NUMBER", "FLIGHT_CODE"],
-        });
-        res.json(gates);
-        console.log(JSON.stringify(gates, null, 1))
-    } catch (error) {
-        res.json({ message: error.message });
-    }  
-}
 
 export const randomGate = async (req, res) => {
     try {
@@ -25,6 +14,51 @@ export const randomGate = async (req, res) => {
         });
         res.json(randGate);
         console.log(JSON.stringify(randGate, null, 2))
+    } catch (error) {
+        res.json({ message: error.message });
+    }  
+}
+
+export const getGatebyID = async (req, res) => {
+    try {
+        const gatedetails = await gate.findOne({
+            attributes: ["ID", "TERMINAL_NUMBER", "GATE_NUMBER"],
+            where: {
+                FLIGHT_CODE: req.params.id
+            },
+        });
+        res.json(gatedetails);
+        console.log(JSON.stringify(gatedetails, null, 2))
+    } catch (error) {
+        res.json({ message: error.message });
+    }  
+}
+
+export const getEnabledGates = async (req, res) => {
+    try {
+        const gates = await gate.findAll({
+            attributes: ["ID", "TERMINAL_NUMBER", "GATE_NUMBER", "FLIGHT_CODE"],
+            where:{
+                isEnabled: 1
+            }
+        });
+        res.json(gates);
+        console.log(JSON.stringify(gates, null, 1))
+    } catch (error) {
+        res.json({ message: error.message });
+    }  
+}
+
+export const getDisabledGates = async (req, res) => {
+    try {
+        const gates = await gate.findAll({
+            attributes: ["ID", "TERMINAL_NUMBER", "GATE_NUMBER", "FLIGHT_CODE"],
+            where:{
+                isEnabled: 0
+            }
+        });
+        res.json(gates);
+        console.log(JSON.stringify(gates, null, 1))
     } catch (error) {
         res.json({ message: error.message });
     }  
