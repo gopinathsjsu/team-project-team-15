@@ -23,6 +23,7 @@ export function maintaintemp(){
     fs.writeFileSync("./Controllers/flights.json",JSON.stringify(flights), (err) => console.log(err));
   }
   getflights();
+  cronfunction();
 }
 
 export function CronAddFlight(flight, date){
@@ -126,7 +127,6 @@ export function cronfunction(){
   
       var timediff = moment.utc(upcomtime).add(8, 'hours').diff(moment(),'minutes');
       console.log(timediff);
-  
       if (timediff<=60){
         AssignGate(upcomflight);
         RemoveFlightFromCron(flights, upcomflight);
@@ -136,31 +136,3 @@ export function cronfunction(){
       }
   });
 }
-
-
-{/*
-    const dflights = flights.data.map(function(flights){ 
-      if (flights['DEPARTURE_DATE']){
-        return { "FLIGHT_CODE": flights["FLIGHT_CODE"], "DATE": flights['DEPARTURE_DATE'].toString()} 
-      }else{
-        return { "FLIGHT_CODE": flights["FLIGHT_CODE"], "DATE": flights['ARRIVAL_DATE'].toString()} 
-      }
-    });
-
-
-        flights.sort(function(a, b) {
-      return moment(a) - moment(b);
-
-
-
-      let items = Object.keys(flights).map(function(key) {
-      return [key, flights[key]];
-    });
-    items.sort(function(a, b) {
-        return moment(a[1]) - moment(b[1]);
-    });
-
-      if (flights['DEPARTURE_DATE']){ dflights[flights["FLIGHT_CODE"]] = flights['DEPARTURE_DATE'];
-      }else{ dflights[flights["FLIGHT_CODE"]] = flights['ARRIVAL_DATE'];}
-    });   
-*/}

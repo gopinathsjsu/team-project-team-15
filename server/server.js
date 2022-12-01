@@ -14,7 +14,7 @@ try {
     console.error('Connection error:', error);
 }
 
-maintaintemp();
+//maintaintemp();
 cron.schedule("*/20 * * * * *", () => {
   //cronfunction();
 });

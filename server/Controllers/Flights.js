@@ -34,11 +34,6 @@ export const getFlightById = async (req, res) => {
             } 
         });
         console.log(JSON.stringify(flights, null, 2))
-        if (flights.DEPARTURE_DATE){
-            //CronAddFlight(flights.FLIGHT_CODE, flights.DEPARTURE_DATE.toISOString());
-        }else{
-            //CronAddFlight(flights.FLIGHT_CODE, flights.ARRIVAL_DATE.toISOString());
-        }
         res.json(flights);
     } catch (error) {
         res.json({ message: error.message });
