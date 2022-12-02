@@ -103,7 +103,7 @@ function App() {
                         </div>
                         <div>
                         <button className='dashbord-btn' onClick={ enableGate }> Enable </button>
-                        <button className='dashbord-btn' > Cancel </button>
+                        {/* <button className='dashbord-btn' > Cancel </button> */}
                     </div>
                     {/* </table> */}
                 </div>
