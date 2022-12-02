@@ -10,10 +10,12 @@ function App() {
   const [data, setData] = useState([]);
   const [getTerminal, setTerminal] = useState([]);
   const [getGate, setGate] = useState([]);
+  const [terminalinputValue, setTerminalInputValue] = useState('');
+  const [gateinputValue, setGateInputValue] = useState('');
   useEffect(() => {
     axios
       .get(
-        "http://localhost:5001/gates/GroupGates"
+        "http://localhost:5001/gates/DisabledGates"
       )
       .then((response) => {
         // console.log(response);
@@ -41,9 +43,9 @@ function App() {
   const enableGate = async (e) => {
     console.log("test");
     e.preventDefault();
-    await axios.patch(`http://localhost:5001/gates/enableGate/:${terminal}/:${getGate}`,{
-        terminal: terminal,
-        gate: getGate,
+    await axios.patch(`http://localhost:5001/gates/enableGate/${terminalinputValue}/${gateinputValue}`,{
+        terminal: terminalinputValue,
+        gate: gateinputValue,
     });
     navigate("/");
 }
@@ -60,7 +62,12 @@ function App() {
                             <td><label>Select Terminal :</label></td>
                             {/* <Typography>Dependent Select Field</Typography> */}
                             <Autocomplete style={{width: '120px'}}
+                              //value={value}
                               onChange={(event, value) => handleTerminal(event, value)}
+                              inputValue={terminalinputValue}
+                              onInputChange={(event, newInputValue) => {
+                                setTerminalInputValue(newInputValue);
+                              }}
                               id="terminal"
                               getOptionLabel={(terminal) => `${terminal}`}
                               options={terminal}
@@ -77,6 +84,10 @@ function App() {
                         <div className='dropdown'>
                             <td><label>Select gate to be enabled :</label></td>
                             <Autocomplete style={{width: '100px'}}
+                              inputValue={gateinputValue}
+                              onInputChange={(event, newInputValue) => {
+                                setGateInputValue(newInputValue);
+                              }}
                               id="gate"
                               getOptionLabel={(getGate) => `${getGate}`}
                               options={getGate}
