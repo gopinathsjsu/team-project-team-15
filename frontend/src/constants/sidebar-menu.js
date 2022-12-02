@@ -6,19 +6,19 @@ const sidebar_menu = [
     {
         id: 1,
         icon: DashboardIcon,
-        path: '/',
+        path: '/dashboard',
         title: 'Dashboard',
     },
     {
         id: 2,
         icon: AddFlight,
-        path: '/AddFlight',
+        path: '/dashboard/AddFlight',
         title: 'Add Flights',
     },
     {
         id: 3,
         icon: UserIcon,
-        path: '/profile',
+        path: '/dashboard/profile',
         title: 'My account',
     }
 ]

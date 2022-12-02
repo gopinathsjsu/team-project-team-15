@@ -20,15 +20,28 @@ const FlightsList = () => {
     }, []);
 
     const getFlights = async (hours) => {
-        const response = await axios.get("http://localhost:5001/api/v1/flights");
-        console.log(response);
-        setFlights(response.data);
-        const depResponse = response.data.filter(response => response.DEPARTURE_PLACE === 'SFO')
+        if(localStorage.getItem('type') == "AIRLINE_EMPLOYEE" ) {
+            const response = await axios.get(`http://localhost:5001/api/v1/flights`);
+            setFlights(response.data);
+            const depResponse = response.data.filter(response => response.DEPARTURE_PLACE === 'SFO').filter(response => response.AIRLINE_CODE.slice(0,3) === localStorage.getItem('name').slice(0,3))
                                          .filter(response => 0 < moment(response.DEPARTURE_DATE).diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
-        const arrResponse = response.data.filter(response => response.ARRIVAL_PLACE === 'SFO')
+            const arrResponse = response.data.filter(response => response.ARRIVAL_PLACE === 'SFO').filter(response => response.AIRLINE_CODE.slice(0,3) === localStorage.getItem('name').slice(0,3))
                                          .filter(response => 0 < moment(response.ARRIVAL_DATE).diff(moment(),'hours') && moment(response.ARRIVAL_DATE).diff(moment(),'hours') <= hours);
-        setArrFlight(arrResponse);
-        setDepFlight(depResponse);
+            setArrFlight(arrResponse);
+            setDepFlight(depResponse);
+        }
+        else{
+            const response = await axios.get("http://localhost:5001/api/v1/flights");
+            console.log(response);
+            setFlights(response.data);
+            const depResponse = response.data.filter(response => response.DEPARTURE_PLACE === 'SFO')
+                                         .filter(response => 0 < moment(response.DEPARTURE_DATE).diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
+            const arrResponse = response.data.filter(response => response.ARRIVAL_PLACE === 'SFO')
+                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).diff(moment(),'hours') && moment(response.ARRIVAL_DATE).diff(moment(),'hours') <= hours);
+            setArrFlight(arrResponse);
+            setDepFlight(depResponse);
+        }
+        
     }
         
     const goHome = async() =>{ 
@@ -110,8 +123,8 @@ const FlightsList = () => {
                             <td><span>{moment(dep_flights.DEPARTURE_DATE).utc().format('YYYY-MM-DD kk:mm:ss')}</span></td>
                             <td><span></span></td>
                             <td><span></span></td>
-                            <td><button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
-                                <button className='btn-remove' onClick={() => deletePopup(dep_flights.FLIGHT_CODE)}>Delete</button></td>
+                            {(localStorage.getItem('type') != "PASSENGERS" ) ? <td><button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
+                                <button className='btn-remove' onClick={() => deletePopup(dep_flights.FLIGHT_CODE)}>Delete</button></td> : null}
                         </tr>
                 )}
                 </tbody>
@@ -150,8 +163,8 @@ const FlightsList = () => {
                             <td><span></span></td>
                             <td><span></span></td>
                             <td><span>{arr_flights.FLIGHT_BAGGAGE}</span></td>
-                            <td><button className='btn-edit' onClick={ () => updateFlight(arr_flights.FLIGHT_CODE) }>update</button>
-                            <button className='btn-remove' onClick={() => deletePopup(arr_flights.FLIGHT_CODE)}>Delete</button></td>
+                            {(localStorage.getItem('type') != "PASSENGERS" ) ? <td><button className='btn-edit' onClick={ () => updateFlight(arr_flights.FLIGHT_CODE) }>update</button>
+                            <button className='btn-remove' onClick={() => deletePopup(arr_flights.FLIGHT_CODE)}>Delete</button></td> : null}
                         </tr>
                     ))}
                 </tbody>

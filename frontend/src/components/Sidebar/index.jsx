@@ -1,19 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import {  useNavigate } from 'react-router-dom';
+import { logoutUserAction } from '../../actions/authenticationAction';
 import SideBarItem from './sidebar-item';
 
 import './styles.css';
 import logo from '../../assets/images/AirlineLogo.png';
 import LogoutIcon from '../../assets/icons/logout.svg';
 
-function SideBar ({ menu }) {
+function SideBar (props) {
     const location = useLocation();
-
+    const navigate  = useNavigate();
     const [active, setActive] = useState(1);
 
     useEffect(() => {
-        menu.forEach(element => {
+        props.menu.forEach(element => {
             if (location.pathname === element.path) {
                 setActive(element.id);
             }
@@ -35,17 +37,19 @@ function SideBar ({ menu }) {
 
                 <div className='sidebar-container'>
                     <div className='sidebar-items'>
-                        {menu.map((item, index) => (
+                        {props.menu.map((item, index) => (
                             <div key={index} onClick={() => __navigate(item.id)}>
+                                {(item.id === 2 && (localStorage.getItem('type') === "PASSENGERS" ) )  ? null :
                                 <SideBarItem
                                     active={item.id === active}
-                                    item={item} />
+                                    item={item} />}
                             </div>
                         ))}
                     </div>
 
                     <div className='sidebar-footer'>
-                        <span className='sidebar-item-label'>Logout</span>
+                        <span className='sidebar-item-label' onClick={()=> {localStorage.removeItem('token');
+  navigate('/login');props.dispatch(logoutUserAction()); }}>Logout</span>
                         <img 
                             src={LogoutIcon}
                             alt='icon-logout'
@@ -56,5 +60,6 @@ function SideBar ({ menu }) {
         </nav>
     )
 }
+const mapStateToProps = (response) => ({response});
 
-export default SideBar;
+export default connect(mapStateToProps)(SideBar);
