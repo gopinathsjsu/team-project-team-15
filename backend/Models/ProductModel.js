@@ -30,14 +30,26 @@ const flight = db.define('FLIGHTS',{
 });
 
 const gate = db.define('GATES',{
-    FLIGHT_CODE:{
-        type: DataTypes.STRING
+    ID:{
+        type: DataTypes.INTEGER
     },
     TERMINAL_NUMBER:{
         type: DataTypes.INTEGER
     },
     GATE_NUMBER:{
+        type: DataTypes.STRING
+    },
+    FLIGHT_CODE:{
+        type: DataTypes.STRING
+    },
+    IsEnabled: {
         type: DataTypes.INTEGER
+    },
+    CreatedAt: {
+        type: DataTypes.DATE
+    },
+    UpdatedAt: {
+        type: DataTypes.DATE
     }
 },{
     freezeTableName: true

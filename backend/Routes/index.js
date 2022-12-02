@@ -1,16 +1,14 @@
 import express from "express";
  
 import { 
-    getAllEnabledGates,
-    getAllDisabledGates,
-    getTerminals,
-    getGroupGates
+    getGroupGates,
+    EnableGate
 } from "../Controllers/Flights.js";
 
 const router = express.Router();
 
-router.get('/EnabledGates', getAllEnabledGates);
-router.get('/DisabledGates', getAllDisabledGates);
-router.get('/Terminals', getTerminals);
+
 router.get('/GroupGates', getGroupGates);
+router.patch('/enableGate/:terminal/:gate', EnableGate);
+
 export default router;
