@@ -68,7 +68,6 @@ import { connect } from 'react-redux';
         margin: "15px 0"
       };
       return (
-        
         <div className="login-container" style={{backgroundColor:'#cce4ff'}}>
           {!isLogged ? <div>{isSuccess}</div> : <Navigate to="/dashboard" />}
           <div className="title">

@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:5001/gates/DisabledGates"
+        "http://localhost:5001/api/v1/gates/disabledgates"
       )
       .then((response) => {
         // console.log(response);
@@ -43,10 +43,7 @@ function App() {
   const enableGate = async (e) => {
     console.log("test");
     e.preventDefault();
-    await axios.patch(`http://localhost:5001/gates/enableGate/${terminalinputValue}/${gateinputValue}`,{
-        terminal: terminalinputValue,
-        gate: gateinputValue,
-    });
+    await axios.patch(`http://localhost:5001/api/v1/gates/enablegate/${terminalinputValue}/${gateinputValue}`);
     navigate("/");
 }
 

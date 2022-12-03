@@ -14,11 +14,8 @@ import sidebar_menu from '../constants/sidebar-menu';
 import FlightsList from '../pages/Flights/DisplayFlights';
 import AddFlight from '../pages/Flights/AddFlight';
 import UpdateFlight from '../pages/Flights/UpdateFlight';
-import EnableGate from '../pages/EnableGate';
-import DisableGate from '../pages/DisableGate';
-import AssignGate from '../pages/AssignGate';
-import AssignBaggageCarousel from '../pages/AssignBaggageCarousel';
-
+import EnableGate from '../pages/Gates/EnableGate';
+import DisableGate from '../pages/Gates/DisableGate';
 
 function isLoggedIn(props) {
     if (props.response.login.response?.isLogged || props.response.register.response?.isCreated) {
@@ -50,8 +47,6 @@ class RoutesClass extends React.Component {
                     <Route exact path="/profile" element={<div></div>} />
                     <Route exact path="/enablegate" element={< EnableGate/>} />
                     <Route exact path="/DisableGate" element={< DisableGate/>} />
-                    <Route exact path="/assigngate" element={< AssignGate/ >} />
-                    <Route exact path="/assignbaggagecarousel" element={< AssignBaggageCarousel/>} />
                 </Routes>
             </div>
         </div>
