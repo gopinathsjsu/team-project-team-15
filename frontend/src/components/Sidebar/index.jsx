@@ -48,7 +48,7 @@ function SideBar (props) {
                     </div>
 
                     <div className='sidebar-footer'>
-                        <span className='sidebar-item-label' onClick={()=> {localStorage.removeItem('token');
+                        <span className='sidebar-item-label' onClick={()=> {localStorage.removeItem('type');
   navigate('/login');props.dispatch(logoutUserAction()); }}>Logout</span>
                         <img 
                             src={LogoutIcon}

@@ -15,7 +15,7 @@ import DashboardPage from './components/Dashboard.js';
 import RoutesClass from './components/RoutesClass';
 
 function isLoggedIn(props) {
-  if (props.response.login.response?.isLogged || props.response.register.response?.isCreated) {
+  if (localStorage.getItem('type')) {
     console.log(props.response.login.response?.isLogged)
     return true;
   }
@@ -31,8 +31,8 @@ function App (props) {
       fontSize: '48px', backgroundColor: '#007AFF'}}>Airport Management System</header>
       <div style={{paddingBottom: '50px'}}></div>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route exact path='/login' element={<Login/>} />
+        <Route path="/" element={!isLoggedIn(props) ? <Home/> : <Navigate to='/dashboard'><RoutesClass/> </Navigate>} />
+        <Route exact path='/login' element={!isLoggedIn(props) ? <Login/> : <Navigate to='/dashboard'><RoutesClass/> </Navigate>} />
         <Route exact path='/register' element={<Signup/>} />
         <Route path='/dashboard/*' element={!isLoggedIn(props) ? <Navigate to='/login'><Login/> </Navigate>:<RoutesClass/>} />
       </Routes>
