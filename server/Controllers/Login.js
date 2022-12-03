@@ -11,7 +11,8 @@ export const get = async (req, res) => {
         airlineEmployeecontroller.getAirline(req,res)
     }
     else{
-        airportEmployeecontroller.getAirport(req,res)
+        if(req.body.accountType=='AIRPORT_EMPLOYEE'){
+        airportEmployeecontroller.getAirport(req,res)}
     }
 }
 
