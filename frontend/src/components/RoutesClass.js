@@ -14,6 +14,10 @@ import sidebar_menu from '../constants/sidebar-menu';
 import FlightsList from '../pages/Flights/DisplayFlights';
 import AddFlight from '../pages/Flights/AddFlight';
 import UpdateFlight from '../pages/Flights/UpdateFlight';
+import EnableGate from '../pages/EnableGate';
+import DisableGate from '../pages/DisableGate';
+import AssignGate from '../pages/AssignGate';
+import AssignBaggageCarousel from '../pages/AssignBaggageCarousel';
 
 
 function isLoggedIn(props) {
@@ -44,6 +48,10 @@ class RoutesClass extends React.Component {
                     <Route exact path="/AddFlight" element={< AddFlight/>} />
                     <Route exact path="/update/:FLIGHT_CODE" element={< UpdateFlight/>} />
                     <Route exact path="/profile" element={<div></div>} />
+                    <Route exact path="/enablegate" element={< EnableGate/>} />
+                    <Route exact path="/DisableGate" element={< DisableGate/>} />
+                    <Route exact path="/assigngate" element={< AssignGate/ >} />
+                    <Route exact path="/assignbaggagecarousel" element={< AssignBaggageCarousel/>} />
                 </Routes>
             </div>
         </div>

@@ -10,6 +10,12 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import cors from "cors";
 import * as logincontroller from '../Controllers/Login.js'
+import { 
+    getDisabledGates,
+    EnableGate,
+    getEnabledGates,
+    DisableGate
+} from "../Controllers/Flights.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -49,5 +55,10 @@ app.get('/api/v1/baggages', baggagecontroller.getAllBaggages);
 app.get('/api/v1/rbaggages', baggagecontroller.randomBaggage);
 app.post('/api/v1/assignBaggage/:terminal/:baggage', baggagecontroller.assignBaggage);
 app.post('/api/v1/unassignBaggage/:terminal/:baggage', baggagecontroller.dismissBaggage);
+
+app.get('/DisabledGates', getDisabledGates);
+app.patch('/enableGate/:terminal/:gate', EnableGate);
+app.get('/enabledGates', getEnabledGates);
+app.patch('/disableGate/:terminal/:gate', DisableGate);
  
 export default app;

@@ -39,10 +39,16 @@ function SideBar (props) {
                     <div className='sidebar-items'>
                         {props.menu.map((item, index) => (
                             <div key={index} onClick={() => __navigate(item.id)}>
-                                {(item.id === 2 && (localStorage.getItem('type') === "PASSENGERS" ) )  ? null :
-                                <SideBarItem
+                                {console.log(localStorage.getItem('type'), item.id)}
+                                {(item.id <= 2 && (localStorage.getItem('type') === "PASSENGERS") )? <SideBarItem
                                     active={item.id === active}
-                                    item={item} />}
+                                    item={item} /> : null }
+                                {(item.id <= 3 && (localStorage.getItem('type') === "AIRLINE_EMPLOYEE") )? <SideBarItem
+                                    active={item.id === active}
+                                    item={item} /> : null }
+                                {(item.id != 3 && (localStorage.getItem('type') === "AIRPORT_EMPLOYEE") )? <SideBarItem
+                                    active={item.id === active}
+                                    item={item} /> : null }
                             </div>
                         ))}
                     </div>
@@ -60,6 +66,7 @@ function SideBar (props) {
         </nav>
     )
 }
+
 const mapStateToProps = (response) => ({response});
 
 export default connect(mapStateToProps)(SideBar);

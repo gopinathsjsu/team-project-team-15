@@ -3,6 +3,7 @@ import db from "./config/database.js";
 import Routes from "./routes/index.js";
 import cors from "cors";
 import cron from "node-cron";
+import gateRoutes from "./routes/index.js";
 import { cronfunction, maintaintemp } from "./Controllers/SchedulerFile.js";
 
 const app = express();
@@ -23,4 +24,5 @@ global.db = db;
 app.use(cors());
 app.use(express.json());
 app.use('/', Routes);
+app.use('/gates', gateRoutes);
 app.listen(5001, () => console.log('Server running at port 5001'));

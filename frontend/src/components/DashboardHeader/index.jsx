@@ -1,8 +1,10 @@
 import React from 'react';
 
 import './styles.css';
+
 import SettingsIcon from '../../assets/icons/settings.svg';
 import { useNavigate } from 'react-router-dom';
+import NotificationIcon from '../../assets/icons/notification.svg';
 
 function DashboardHeader ({ btnTextH, btnText1, btnText2, btnText4, onClickH, onClick1, onClick2, onClick4 }) {
 
@@ -41,6 +43,5 @@ function DashboardHeader ({ btnTextH, btnText1, btnText2, btnText4, onClickH, on
     )
 }
 
-
-
 export default DashboardHeader;
+
