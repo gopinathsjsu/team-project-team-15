@@ -15,10 +15,10 @@ try {
     console.error('Connection error:', error);
 }
 
-//maintaintemp();
-cron.schedule("*/20 * * * * *", () => {
-  //cronfunction();
-});
+maintaintemp();
+//cron.schedule("*/20 * * * * *", () => {
+//  cronfunction();
+//});
 
 global.db = db;
 app.use(cors());

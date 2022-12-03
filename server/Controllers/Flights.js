@@ -1,7 +1,6 @@
 import { Sequelize } from "sequelize";
 import {flight, gate, baggage} from "../Models/flightsModel.js";
-import { CronAddFlight, CronUpdateFlight } from "./SchedulerFile.js";
-
+import { CronAddFlight, CronUpdateFlight } from "./GatesCronJob.js";
 
 export const getAllFlights = async (req, res) => {
     try {

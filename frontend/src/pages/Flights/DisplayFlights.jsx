@@ -33,9 +33,9 @@ const FlightsList = () => {
           });
         if(localStorage.getItem('type') == "AIRLINE_EMPLOYEE" ) {
             const depResponse = response.filter(response => response.DEPARTURE_PLACE === 'SFO').filter(response => response.AIRLINE_CODE.slice(0,3) === localStorage.getItem('name').slice(0,3))
-                                         .filter(response => 0 < moment(response.DEPARTURE_DATE).diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
+                                         .filter(response => 0 < moment(response.DEPARTURE_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
             const arrResponse = response.filter(response => response.ARRIVAL_PLACE === 'SFO').filter(response => response.AIRLINE_CODE.slice(0,3) === localStorage.getItem('name').slice(0,3))
-                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).diff(moment(),'hours') && moment(response.ARRIVAL_DATE).diff(moment(),'hours') <= hours);
+                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.ARRIVAL_DATE).diff(moment(),'hours') <= hours);
             setArrFlight(arrResponse);
             setDepFlight(depResponse);
         }
@@ -43,9 +43,9 @@ const FlightsList = () => {
             console.log(response);
             setFlights(response.data);
             const depResponse = response.filter(response => response.DEPARTURE_PLACE === 'SFO')
-                                         .filter(response => 0 < moment(response.DEPARTURE_DATE).diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
+                                         .filter(response => 0 < moment(response.DEPARTURE_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
             const arrResponse = response.filter(response => response.ARRIVAL_PLACE === 'SFO')
-                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).diff(moment(),'hours') && moment(response.ARRIVAL_DATE).diff(moment(),'hours') <= hours);
+                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.ARRIVAL_DATE).diff(moment(),'hours') <= hours);
             setArrFlight(arrResponse);
             setDepFlight(depResponse);
         }
