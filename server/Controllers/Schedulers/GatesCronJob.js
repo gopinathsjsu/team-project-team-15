@@ -38,10 +38,8 @@ export function StartGatesCron(flights, upcomflight){
     }
 
     AssignGate(upcomflight);
-//    baggagecronfunction();
     RemoveFlightFromCron(flights, upcomflight)
     setTimeout(() => {
       unAssignGate(upcomflight);
-//      unAssignBaggage(upcomflight);
     }, (2 * 60 * 60 * 1000));   
 }
