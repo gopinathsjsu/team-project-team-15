@@ -69,7 +69,8 @@ export const updateFlight = async (req, res) => {
                 FLIGHT_CODE: req.params.id,
             }
         });
-        CronUpdateFlight(flights.FLIGHT_CODE, flights.DEPARTURE_DATE.toISOString());
+        console.log("Flight Details Updated")
+        //CronUpdateFlight(flight.FLIGHT_CODE, flight.DEPARTURE_DATE.toISOString());
         res.json({
             "message": "Flight Details Updated",
         });

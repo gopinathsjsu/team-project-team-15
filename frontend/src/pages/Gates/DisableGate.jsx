@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DashboardHeader from '../../components/DashboardHeader';
 import { useNavigate } from 'react-router-dom';
+import '../styles.css';
 
 function App() {
   const [data, setData] = useState([]);
