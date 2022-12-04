@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import {flight, gate, baggage} from "../Models/flightsModel.js";
-import { CronAddFlight, CronUpdateFlight } from "./GatesCronJob.js";
+import { maintaintemp } from "./Schedulers/GateSchedulerFile.js"
+import { maintainbagtemp }  from "./Schedulers/BaggageSchedulerFile.js"
 
 export const getAllFlights = async (req, res) => {
     try {
@@ -55,7 +56,8 @@ export const AddFlight = async (req, res) => {
             "message": "Added new Flight"
         });
         console.log(req.body);
-        CronAddFlight(req.body.FLIGHT_CODE, req.body.DEPARTURE_DATE.toISOString());
+        maintaintemp()
+        maintainbagtemp();
     } catch (error) {
         res.json({ message: error.message });
     }  
@@ -69,7 +71,8 @@ export const updateFlight = async (req, res) => {
                 FLIGHT_CODE: req.params.id,
             }
         });
-        CronUpdateFlight(flights.FLIGHT_CODE, flights.DEPARTURE_DATE.toISOString());
+        maintaintemp();
+        maintainbagtemp();
         res.json({
             "message": "Flight Details Updated",
         });
@@ -85,6 +88,8 @@ export const deleteFlight = async (req, res) => {
                 FLIGHT_CODE: req.params.id
             }
         });
+        maintaintemp();
+        maintainbagtemp();
         res.json({
             "message": "Flight Deleted"
         });

@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'static')));
 const corsOptions ={
     origin:'http://localhost:3000', 
-    credentials:true,            //access-control-allow-credentials:true
+    credentials:true, 
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
@@ -46,10 +46,9 @@ app.patch('/api/v1/gates/enablegate/:terminal/:gate', gatescontroller.enableGate
 app.patch('/api/v1/gates/disablegate/:terminal/:gate', gatescontroller.disableGate);
 
 app.get('/api/v1/baggages', baggagecontroller.getAllBaggages);
-app.get('/api/v1/rbaggages', baggagecontroller.randomBaggage);
+app.get('/api/v1/baggages/rbaggage/:terminal', baggagecontroller.randomBaggage);
+app.get('/api/v1/baggages/:id', baggagecontroller.getBaggagebyID);
 app.post('/api/v1/baggages/assignBaggage/:terminal/:baggage', baggagecontroller.assignBaggage);
 app.post('/api/v1/baggages/unassignBaggage/:terminal/:baggage', baggagecontroller.dismissBaggage);
-
-
  
 export default app;
