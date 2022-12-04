@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import {flight, gate, baggage} from "../Models/flightsModel.js";
 import { maintaintemp } from "./Schedulers/GateSchedulerFile.js"
-import { maintainbagtemp }  from "./Schedulers/BaggageSchedulerFile.js"
+//import { maintainbagtemp }  from "./Schedulers/BaggageSchedulerFile.js"
 
 export const getAllFlights = async (req, res) => {
     try {
@@ -57,7 +57,6 @@ export const AddFlight = async (req, res) => {
         });
         console.log(req.body);
         maintaintemp()
-        maintainbagtemp();
     } catch (error) {
         res.json({ message: error.message });
     }  
@@ -72,7 +71,6 @@ export const updateFlight = async (req, res) => {
             }
         });
         maintaintemp();
-        maintainbagtemp();
         res.json({
             "message": "Flight Details Updated",
         });
@@ -89,7 +87,6 @@ export const deleteFlight = async (req, res) => {
             }
         });
         maintaintemp();
-        maintainbagtemp();
         res.json({
             "message": "Flight Deleted"
         });

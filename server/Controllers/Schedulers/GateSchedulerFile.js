@@ -2,7 +2,7 @@ import fs from "fs"
 import moment from "moment";
 import axios from "axios";
 import {StartGatesCron} from "./GatesCronJob.js";
-import { maintainbagtemp } from "./BaggageSchedulerFile.js";
+//import { maintainbagtemp } from "./BaggageSchedulerFile.js";
 
 export function maintaintemp(){
 
@@ -27,13 +27,13 @@ export function maintaintemp(){
     fs.writeFileSync("./Controllers/Schedulers/gates.json",JSON.stringify(flights, null, 4), (err) => console.log(err));
   }
   getflights();
-  maintainbagtemp();
+//  maintainbagtemp();
 }
 
 export function gatecronfunction(){
   const initcheck = async(flights, upcomflight, upcomtime) => {
     const gatecheck = await axios.get(`http://localhost:5001/api/v1/gates/${upcomflight}`)
-    console.log(gatecheck.data);
+//    console.log(gatecheck.data);
     if (gatecheck.data === null){
       let timediff = moment(upcomtime).diff(moment(),'minutes');
       if (timediff<60){

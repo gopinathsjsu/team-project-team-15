@@ -1,6 +1,6 @@
 import axios from "axios";
 import fs from "fs";
-import { baggagecronfunction } from "./BaggageSchedulerFile.js";
+//import { baggagecronfunction } from "./BaggageSchedulerFile.js";
 
 
 export function StartGatesCron(flights, upcomflight){  
@@ -38,10 +38,10 @@ export function StartGatesCron(flights, upcomflight){
     }
 
     AssignGate(upcomflight);
-    baggagecronfunction();
+//    baggagecronfunction();
     RemoveFlightFromCron(flights, upcomflight)
     setTimeout(() => {
       unAssignGate(upcomflight);
-      unAssignBaggage(upcomflight);
+//      unAssignBaggage(upcomflight);
     }, (2 * 60 * 60 * 1000));   
 }

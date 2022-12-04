@@ -5,7 +5,7 @@ import cors from "cors";
 import cron from "node-cron";
 import gateRoutes from "./routes/index.js";
 import { gatecronfunction, maintaintemp } from "./Controllers/Schedulers/GateSchedulerFile.js";
-import { baggagecronfunction, maintainbagtemp } from "./Controllers/Schedulers/BaggageSchedulerFile.js";
+//import { baggagecronfunction, maintainbagtemp } from "./Controllers/Schedulers/BaggageSchedulerFile.js";
 
 const app = express();
 
