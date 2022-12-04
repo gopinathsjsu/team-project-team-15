@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import {flight, gate, baggage} from "../Models/flightsModel.js";
-import { maintaintemp } from "./Schedulers/GateSchedulerFile.js"
-//import { maintainbagtemp }  from "./Schedulers/BaggageSchedulerFile.js"
+import { maintaingatetemp } from "./Schedulers/GateSchedulerFile.js"
+import { maintainbagtemp }  from "./Schedulers/BaggageSchedulerFile.js"
 
 export const getAllFlights = async (req, res) => {
     try {
@@ -28,7 +28,7 @@ export const getAllFlights = async (req, res) => {
             ],
         });
         res.json(flights);
-        console.log(JSON.stringify(flights, null, 2))
+        //console.log(JSON.stringify(flights, null, 2))
     } catch (error) {
         res.json({ message: error.message });
     }  
@@ -56,7 +56,8 @@ export const AddFlight = async (req, res) => {
             "message": "Added new Flight"
         });
         console.log(req.body);
-        maintaintemp()
+        maintaingatetemp()
+        maintainbagtemp()
     } catch (error) {
         res.json({ message: error.message });
     }  
@@ -70,7 +71,8 @@ export const updateFlight = async (req, res) => {
                 FLIGHT_CODE: req.params.id,
             }
         });
-        maintaintemp();
+        maintaingatetemp()
+        maintainbagtemp()
         res.json({
             "message": "Flight Details Updated",
         });
@@ -86,7 +88,8 @@ export const deleteFlight = async (req, res) => {
                 FLIGHT_CODE: req.params.id
             }
         });
-        maintaintemp();
+        maintaingatetemp()
+        maintainbagtemp()
         res.json({
             "message": "Flight Deleted"
         });

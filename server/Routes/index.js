@@ -28,7 +28,7 @@ const corsOptions ={
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
-
+    
 app.post('/api/v1/login', logincontroller.get);
 app.get('/api/v1/flights/', flightscontroller.getAllFlights);
 app.get('/api/v1/flights/:id', flightscontroller.getFlightById);
