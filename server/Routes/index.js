@@ -10,12 +10,6 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import cors from "cors";
 import * as logincontroller from '../Controllers/Login.js'
-import { 
-    getDisabledGates,
-    EnableGate,
-    getEnabledGates,
-    DisableGate
-} from "../Controllers/Flights.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -30,11 +24,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'static')));
 const corsOptions ={
     origin:'http://localhost:3000', 
-    credentials:true,            //access-control-allow-credentials:true
+    credentials:true, 
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
-
+    
 app.post('/api/v1/login', logincontroller.get);
 app.get('/api/v1/flights/', flightscontroller.getAllFlights);
 app.get('/api/v1/flights/:id', flightscontroller.getFlightById);
@@ -42,23 +36,19 @@ app.post('/api/v1/flights/', flightscontroller.AddFlight);
 app.patch('/api/v1/flights/:id', flightscontroller.updateFlight);
 app.delete('/api/v1/flights/:id', flightscontroller.deleteFlight);
 
-app.get('/api/v1/rgate', gatescontroller.randomGate);
-app.get('/api/v1/enabledgates', gatescontroller.getEnabledGates);
-app.get('/api/v1/disabledgates', gatescontroller.getDisabledGates);
+app.get('/api/v1/gates/rgate', gatescontroller.randomGate);
+app.get('/api/v1/gates/enabledgates', gatescontroller.getEnabledGates);
+app.get('/api/v1/gates/disabledgates', gatescontroller.getDisabledGates);
 app.get('/api/v1/gates/:id', gatescontroller.getGatebyID);
-app.post('/api/v1/assigngate/:terminal/:gate', gatescontroller.assignGate);
-app.post('/api/v1/unassigngate/:terminal/:gate', gatescontroller.unassignGate);
-app.post('/api/v1/enablegate/:terminal/:gate', gatescontroller.enableGate);
-app.post('/api/v1/disablegate/:terminal/:gate', gatescontroller.disableGate);
+app.post('/api/v1/gates/assigngate/:terminal/:gate', gatescontroller.assignGate);
+app.post('/api/v1/gates/unassigngate/:terminal/:gate', gatescontroller.unassignGate);
+app.patch('/api/v1/gates/enablegate/:terminal/:gate', gatescontroller.enableGate);
+app.patch('/api/v1/gates/disablegate/:terminal/:gate', gatescontroller.disableGate);
 
 app.get('/api/v1/baggages', baggagecontroller.getAllBaggages);
-app.get('/api/v1/rbaggages', baggagecontroller.randomBaggage);
-app.post('/api/v1/assignBaggage/:terminal/:baggage', baggagecontroller.assignBaggage);
-app.post('/api/v1/unassignBaggage/:terminal/:baggage', baggagecontroller.dismissBaggage);
-
-app.get('/DisabledGates', getDisabledGates);
-app.patch('/enableGate/:terminal/:gate', EnableGate);
-app.get('/enabledGates', getEnabledGates);
-app.patch('/disableGate/:terminal/:gate', DisableGate);
+app.get('/api/v1/baggages/rbaggage/:terminal', baggagecontroller.randomBaggage);
+app.get('/api/v1/baggages/:id', baggagecontroller.getBaggagebyID);
+app.post('/api/v1/baggages/assignBaggage/:terminal/:baggage', baggagecontroller.assignBaggage);
+app.post('/api/v1/baggages/unassignBaggage/:terminal/:baggage', baggagecontroller.dismissBaggage);
  
 export default app;

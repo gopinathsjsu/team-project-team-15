@@ -104,40 +104,40 @@ export const unassignGate = async (req, res) => {
 
 export const enableGate = async (req, res) => {
     try {
-            await gate.update({
-                isEnabled: 1
+        await gate.update({
+                IsEnabled: 1
             }, 
             {
                 where: {
                     TERMINAL_NUMBER: req.params.terminal,
                     GATE_NUMBER: req.params.gate,
                 }
-            }
+            },
         );
-        res.json({
-            "message": "Enabled Gate",
-        });
+        console.log('Enabled Gate',req.params)
+        res.json(enabresp);
     } catch (error) {
+        console.log(error.message);
         res.json({ message: error.message });
     }  
 }
 
 export const disableGate = async (req, res) => {
     try {
-            await gate.update({
-                isEnabled: 0
+        const disabresp = await gate.update({
+                IsEnabled: 0,
             }, 
             {
                 where: {
                     TERMINAL_NUMBER: req.params.terminal,
                     GATE_NUMBER: req.params.gate,
                 }
-            }
+            },
         );
-        res.json({
-            "message": "Disabled Gate",
-        });
+        console.log('Disabled Gate',req.params)
+        res.json(disabresp);
     } catch (error) {
+        console.log(error.message);
         res.json({ message: error.message });
     }  
 }

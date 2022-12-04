@@ -1,12 +1,12 @@
+import axios from "axios";
+import moment from "moment";
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert'; 
-import axios from "axios";
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
 import '../../index.css'
 import DashboardHeader from '../../components/DashboardHeader/index.jsx';
-import 'react-confirm-alert/src/react-confirm-alert.css'; 
-import moment from "moment";
 
 
 const FlightsList = () => {
@@ -20,24 +20,32 @@ const FlightsList = () => {
     }, []);
 
     const getFlights = async (hours) => {
+        const initresponse = await axios.get(`http://localhost:5001/api/v1/flights`);
+        setFlights(initresponse.data);
+        const response = initresponse.data.map(function(flights){ 
+            if (flights['GATE'] == null){
+                flights.GATE={"TERMINAL_NUMBER": "NA", "GATE_NUMBER": "NA", }
+            }
+            if (flights['BAGGAGE'] == null){
+                flights.BAGGAGE={"TERMINAL_NUMBER": "NA", "BAGGAGE_NUMBER": "NA", }
+            }
+            return flights
+          });
         if(localStorage.getItem('type') == "AIRLINE_EMPLOYEE" ) {
-            const response = await axios.get(`http://localhost:5001/api/v1/flights`);
-            setFlights(response.data);
-            const depResponse = response.data.filter(response => response.DEPARTURE_PLACE === 'SFO').filter(response => response.AIRLINE_CODE.slice(0,3) === localStorage.getItem('name').slice(0,3))
-                                         .filter(response => 0 < moment(response.DEPARTURE_DATE).diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
-            const arrResponse = response.data.filter(response => response.ARRIVAL_PLACE === 'SFO').filter(response => response.AIRLINE_CODE.slice(0,3) === localStorage.getItem('name').slice(0,3))
-                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).diff(moment(),'hours') && moment(response.ARRIVAL_DATE).diff(moment(),'hours') <= hours);
+            const depResponse = response.filter(response => response.DEPARTURE_PLACE === 'SFO').filter(response => response.AIRLINE_CODE.slice(0,3) === localStorage.getItem('name').slice(0,3))
+                                         .filter(response => 0 < moment(response.DEPARTURE_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.DEPARTURE_DATE).add(9, 'hours').diff(moment(),'hours') <= hours);
+            const arrResponse = response.filter(response => response.ARRIVAL_PLACE === 'SFO').filter(response => response.AIRLINE_CODE.slice(0,3) === localStorage.getItem('name').slice(0,3))
+                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') <= hours);
             setArrFlight(arrResponse);
             setDepFlight(depResponse);
         }
         else{
-            const response = await axios.get("http://localhost:5001/api/v1/flights");
             console.log(response);
             setFlights(response.data);
-            const depResponse = response.data.filter(response => response.DEPARTURE_PLACE === 'SFO')
-                                         .filter(response => 0 < moment(response.DEPARTURE_DATE).diff(moment(),'hours') && moment(response.DEPARTURE_DATE).diff(moment(),'hours') <= hours);
-            const arrResponse = response.data.filter(response => response.ARRIVAL_PLACE === 'SFO')
-                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).diff(moment(),'hours') && moment(response.ARRIVAL_DATE).diff(moment(),'hours') <= hours);
+            const depResponse = response.filter(response => response.DEPARTURE_PLACE === 'SFO')
+                                         .filter(response => 0 < moment(response.DEPARTURE_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.DEPARTURE_DATE).add(9, 'hours').diff(moment(),'hours') <= hours);
+            const arrResponse = response.filter(response => response.ARRIVAL_PLACE === 'SFO')
+                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') <= hours);
             setArrFlight(arrResponse);
             setDepFlight(depResponse);
         }
@@ -57,6 +65,10 @@ const FlightsList = () => {
     }
 
     const Next4hr = async() =>{ 
+        getFlights(4);
+    }
+    
+    const Next5hr = async() =>{ 
         getFlights(1500);
     }
 
@@ -89,8 +101,8 @@ const FlightsList = () => {
 
     return (
         <div className='dashboard-content'>
-            <DashboardHeader btnTextH="Home" btnText1="Next One hour" btnText2="Next Two hour" btnText4="Next Four hour"
-                            onclickH={goHome} onClick1={Next1hr} onClick2={Next2hr} onClick4={Next4hr}/>
+            <DashboardHeader btnTextH="Home" btnText1="Next One hour" btnText2="Next Two hour" btnText4="Next Four hour" btnText5="Home"
+                            onclickH={goHome} onClick1={Next1hr} onClick2={Next2hr} onClick4={Next4hr} onClick5={Next5hr}/>
 
             <div className='dashboard-content-container'>
                 
@@ -112,7 +124,7 @@ const FlightsList = () => {
                         <th>Departure Time</th>
                         <th>Terminal</th>
                         <th>Gate</th>
-                        <th>Actions</th>
+                        {(localStorage.getItem('type') === "AIRLINE_EMPLOYEE" ) ? <th>Actions</th> : null}                
                 </thead>
                 <tbody>
                     {dep_flights.map((dep_flights, index) => 
@@ -121,9 +133,9 @@ const FlightsList = () => {
                             <td><span>{dep_flights.AIRLINE_CODE}</span></td>
                             <td><span>{dep_flights.ARRIVAL_PLACE}</span></td>
                             <td><span>{moment(dep_flights.DEPARTURE_DATE).utc().format('YYYY-MM-DD kk:mm:ss')}</span></td>
-                            <td><span></span></td>
-                            <td><span></span></td>
-                            {(localStorage.getItem('type') != "PASSENGERS" ) ? <td><button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
+                            <td><span>{dep_flights.GATE.TERMINAL_NUMBER}</span></td>
+                            <td><span>{dep_flights.GATE.GATE_NUMBER}</span></td>
+                            {(localStorage.getItem('type') === "AIRLINE_EMPLOYEE" ) ? <td><button className='btn-edit' onClick={ () => updateFlight(dep_flights.FLIGHT_CODE) }>update</button>
                                 <button className='btn-remove' onClick={() => deletePopup(dep_flights.FLIGHT_CODE)}>Delete</button></td> : null}
                         </tr>
                 )}
@@ -151,7 +163,7 @@ const FlightsList = () => {
                         <th>Terminal</th>
                         <th>Gate</th>
                         <th>Baggage</th>
-                        <th>Actions</th>
+                        {(localStorage.getItem('type') === "AIRLINE_EMPLOYEE" ) ? <th>Actions</th> : null}                
                 </thead>
                 <tbody>
                     {arr_flights.map((arr_flights, index) => (
@@ -160,10 +172,10 @@ const FlightsList = () => {
                             <td><span>{arr_flights.AIRLINE_CODE}</span></td>
                             <td><span>{arr_flights.DEPARTURE_PLACE}</span></td>
                             <td><span>{moment(arr_flights.ARRIVAL_DATE).utc().format('YYYY-MM-DD kk:mm:ss')}</span></td>
-                            <td><span></span></td>
-                            <td><span></span></td>
-                            <td><span>{arr_flights.FLIGHT_BAGGAGE}</span></td>
-                            {(localStorage.getItem('type') != "PASSENGERS" ) ? <td><button className='btn-edit' onClick={ () => updateFlight(arr_flights.FLIGHT_CODE) }>update</button>
+                            <td><span>{arr_flights.GATE.TERMINAL_NUMBER}</span></td>
+                            <td><span>{arr_flights.GATE.GATE_NUMBER}</span></td>
+                            <td><span>{arr_flights.BAGGAGE.BAGGAGE_NUMBER}</span></td>
+                            {(localStorage.getItem('type') === "AIRLINE_EMPLOYEE" ) ? <td><button className='btn-edit' onClick={ () => updateFlight(arr_flights.FLIGHT_CODE) }>update</button>
                             <button className='btn-remove' onClick={() => deletePopup(arr_flights.FLIGHT_CODE)}>Delete</button></td> : null}
                         </tr>
                     ))}

@@ -12,6 +12,9 @@ const gate = db.define('GATES',{
     },
     GATE_NUMBER:{
         type: DataTypes.INTEGER
+    },
+    IsEnabled: {
+        type: DataTypes.INTEGER
     }
 },{
     freezeTableName: true

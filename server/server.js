@@ -4,7 +4,8 @@ import Routes from "./routes/index.js";
 import cors from "cors";
 import cron from "node-cron";
 import gateRoutes from "./routes/index.js";
-import { cronfunction, maintaintemp } from "./Controllers/SchedulerFile.js";
+import { gatecronfunction, maintaingatetemp } from "./Controllers/Schedulers/GateSchedulerFile.js";
+import { baggagecronfunction, maintainbagtemp } from "./Controllers/Schedulers/BaggageSchedulerFile.js";
 
 const app = express();
 
@@ -15,9 +16,11 @@ try {
     console.error('Connection error:', error);
 }
 
-//maintaintemp();
+maintaingatetemp();
+maintainbagtemp();
 cron.schedule("*/20 * * * * *", () => {
-  //cronfunction();
+//  gatecronfunction();
+//  baggagecronfunction();
 });
 
 global.db = db;
