@@ -32,12 +32,12 @@ export function gatecronfunction(){
   const initcheck = async(flights, upcomflight, upcomtime) => {
     const gatecheck = await axios.get(`http://localhost:5001/api/v1/gates/${upcomflight}`)
     if (gatecheck.data === null){
-      let timediff = moment(upcomtime).diff(moment(),'minutes');
+      let timediff = moment(upcomtime).add(8,'hours').diff(moment(),'minutes');
       if (timediff<60){
         console.log("Initiliazed gate assignment for flight ", upcomflight);
         StartGatesCron(flights, upcomflight)
       }else{
-        console.log("Upcoming flight",upcomflight,",Gate to be assigned in ",timediff-60,"minutes");
+        console.log("Upcoming flight",upcomflight,",gate to be assigned in ",timediff-60,"minutes");
       }
     }else{
       delete flights[upcomflight];

@@ -33,13 +33,17 @@ export function baggagecronfunction(){
   const initcheck = async(flights, upcomflight, upcomtime) => {
     const gatecheck = await axios.get(`http://localhost:5001/api/v1/gates/${upcomflight}`)
     const baggagecheck = await axios.get(`http://localhost:5001/api/v1/baggages/${upcomflight}`)
-    if (gatecheck.data !== null || baggagecheck.data === null){
-      let timediff = moment(upcomtime).diff(moment(),'minutes');
+    if (baggagecheck.data === null){
+      let timediff = moment(upcomtime).add(8,'hours').diff(moment(),'minutes');
+      console.log(timediff);
       if (timediff<60){
-        console.log("Initiliazed baggage assignment for flight ", upcomflight);
-        StartBaggagesCron(flights, upcomflight, gatecheck.data.TERMINAL_NUMBER)
+        const gatecheck = await axios.get(`http://localhost:5001/api/v1/gates/${upcomflight}`)
+        if (gatecheck.data !== null){
+          console.log("Initiliazed baggage assignment for flight ", upcomflight);
+          StartBaggagesCron(flights, upcomflight, gatecheck.data.TERMINAL_NUMBER)  
+        }
       }else{
-        console.log("Upcoming flight",upcomflight,",baggage to be assigned in ",timediff-2,"minutes");
+        console.log("Upcoming flight",upcomflight,",baggage to be assigned in ",timediff-60,"minutes");
       }
     }else{
       delete flights[upcomflight];

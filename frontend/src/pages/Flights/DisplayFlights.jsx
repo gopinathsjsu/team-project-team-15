@@ -16,10 +16,10 @@ const FlightsList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getFlights(15000);
+        getFlights(-1,15000)
     }, []);
 
-    const getFlights = async (hours) => {
+    const getFlights = async (ear,hours) => {
         const initresponse = await axios.get(`http://localhost:5001/api/v1/flights`);
         setFlights(initresponse.data);
         const response = initresponse.data.map(function(flights){ 
@@ -35,7 +35,7 @@ const FlightsList = () => {
             const depResponse = response.filter(response => response.DEPARTURE_PLACE === 'SFO').filter(response => response.AIRLINE_CODE.slice(0,3) === localStorage.getItem('name').slice(0,3))
                                          .filter(response => 0 < moment(response.DEPARTURE_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.DEPARTURE_DATE).add(9, 'hours').diff(moment(),'hours') <= hours);
             const arrResponse = response.filter(response => response.ARRIVAL_PLACE === 'SFO').filter(response => response.AIRLINE_CODE.slice(0,3) === localStorage.getItem('name').slice(0,3))
-                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') <= hours);
+                                         .filter(response => ear < moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') <= hours);
             setArrFlight(arrResponse);
             setDepFlight(depResponse);
         }
@@ -45,31 +45,27 @@ const FlightsList = () => {
             const depResponse = response.filter(response => response.DEPARTURE_PLACE === 'SFO')
                                          .filter(response => 0 < moment(response.DEPARTURE_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.DEPARTURE_DATE).add(9, 'hours').diff(moment(),'hours') <= hours);
             const arrResponse = response.filter(response => response.ARRIVAL_PLACE === 'SFO')
-                                         .filter(response => 0 < moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') <= hours);
+                                         .filter(response => ear < moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') && moment(response.ARRIVAL_DATE).add(9, 'hours').diff(moment(),'hours') <= hours);
             setArrFlight(arrResponse);
             setDepFlight(depResponse);
         }
         
     }
-        
-    const goHome = async() =>{ 
-        getFlights(15000);
-    }
 
     const Next1hr = async() =>{ 
-        getFlights(1);
+        getFlights(0,1);
     }
 
     const Next2hr = async() =>{ 
-        getFlights(2);
+        getFlights(0,2);
     }
 
     const Next4hr = async() =>{ 
-        getFlights(4);
+        getFlights(0,4);
     }
     
     const Next5hr = async() =>{ 
-        getFlights(1500);
+        getFlights(0,1500);
     }
 
     const updateFlight = async (FLIGHT_CODE) =>{ 
@@ -101,8 +97,8 @@ const FlightsList = () => {
 
     return (
         <div className='dashboard-content'>
-            <DashboardHeader btnTextH="Home" btnText1="Next One hour" btnText2="Next Two hour" btnText4="Next Four hour" btnText5="Home"
-                            onclickH={goHome} onClick1={Next1hr} onClick2={Next2hr} onClick4={Next4hr} onClick5={Next5hr}/>
+            <DashboardHeader btnText1="Next One hour" btnText2="Next Two hour" btnText4="Next Four hour" btnText5="Home"
+                            onClick1={Next1hr} onClick2={Next2hr} onClick4={Next4hr} onClick5={Next5hr}/>
 
             <div className='dashboard-content-container'>
                 

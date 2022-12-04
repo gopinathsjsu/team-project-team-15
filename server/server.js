@@ -19,8 +19,8 @@ try {
 maintaingatetemp();
 maintainbagtemp();
 cron.schedule("*/20 * * * * *", () => {
-//  gatecronfunction();
-//  baggagecronfunction();
+  gatecronfunction();
+  baggagecronfunction();
 });
 
 global.db = db;

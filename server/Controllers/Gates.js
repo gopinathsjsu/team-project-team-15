@@ -1,6 +1,7 @@
 import gate from "../Models/gatesModel.js";
 import { Sequelize } from "sequelize";
-
+import { maintaingatetemp } from "./Schedulers/GateSchedulerFile.js"
+import { maintainbagtemp }  from "./Schedulers/BaggageSchedulerFile.js"
 
 export const randomGate = async (req, res) => {
     try {
@@ -74,6 +75,8 @@ export const assignGate = async (req, res) => {
                 }
             }
         );
+        maintaingatetemp()
+        maintainbagtemp()
         res.json({
             "message": "Gate Assigned",
         });
@@ -94,6 +97,8 @@ export const unassignGate = async (req, res) => {
                 }
             }
         );
+        maintaingatetemp()
+        maintainbagtemp()
         res.json({
             "message": "Gate Unassigned",
         });
