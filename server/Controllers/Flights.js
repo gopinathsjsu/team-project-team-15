@@ -55,8 +55,9 @@ export const AddFlight = async (req, res) => {
             "message": "Added new Flight"
         });
         console.log(req.body);
-        CronAddFlight(req.body.FLIGHT_CODE, req.body.DEPARTURE_DATE.toISOString());
+        //CronAddFlight(req.body.FLIGHT_CODE, req.body.DEPARTURE_DATE.toISOString());
     } catch (error) {
+        console.log('message: error.message');
         res.json({ message: error.message });
     }  
 }
