@@ -1,5 +1,5 @@
 export const registerUserService = (request) => {
-    const REGISTER_API_ENDPOINT = 'http://localhost:5001/api/v1/register';
+    const REGISTER_API_ENDPOINT = '/api/v1/register';
     
     const parameters = {
       method: 'POST',
@@ -19,7 +19,7 @@ export const registerUserService = (request) => {
   };
   
   export const loginUserService = (request) => {
-    const LOGIN_API_ENDPOINT = 'http://localhost:5001/api/v1/login';
+    const LOGIN_API_ENDPOINT = '/api/v1/login';
     console.log("Service")
     const parameters = {
       method: 'POST',
@@ -40,7 +40,7 @@ export const registerUserService = (request) => {
   };
 
   export const logoutUserService = (request) => {
-    const LOGIN_API_ENDPOINT = 'http://localhost:5001/api/v1/logout';
+    const LOGIN_API_ENDPOINT = '/api/v1/logout';
     console.log("Service")
     const parameters = {
       method: 'POST',
