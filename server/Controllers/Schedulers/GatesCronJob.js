@@ -7,8 +7,8 @@ export function StartGatesCron(flights, upcomflight){
 
     const AssignGate = async(upcomflight) => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/v1/gates/rgate`);
-        const assignapicall = `http://localhost:5001/api/v1/gates/assigngate/${response.data.TERMINAL_NUMBER}/${response.data.GATE_NUMBER}`
+        const response = await axios.get(`/api/v1/gates/rgate`);
+        const assignapicall = `/api/v1/gates/assigngate/${response.data.TERMINAL_NUMBER}/${response.data.GATE_NUMBER}`
         const assignbody = {"FLIGHT_CODE": `${upcomflight}`};
         
         await axios.post(`${assignapicall}`,assignbody);
@@ -20,8 +20,8 @@ export function StartGatesCron(flights, upcomflight){
   
     const unAssignGate = async(upcomflight) => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/v1/gates/${upcomflight}`);
-        const assignapicall = `http://localhost:5001/api/v1/gates/unassigngate/${response.data.TERMINAL_NUMBER}/${response.data.GATE_NUMBER}`;
+        const response = await axios.get(`/api/v1/gates/${upcomflight}`);
+        const assignapicall = `/api/v1/gates/unassigngate/${response.data.TERMINAL_NUMBER}/${response.data.GATE_NUMBER}`;
         const unassignbody = {"FLIGHT_CODE": null};
         
         await axios.post(`${assignapicall}`,unassignbody);

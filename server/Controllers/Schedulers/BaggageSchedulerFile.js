@@ -7,7 +7,7 @@ import { response } from "express";
 export function maintainbagtemp(){
 
   const getflights = async() => {
-    let flights = await axios.get(`http://localhost:5001/api/v1/flights`);
+    let flights = await axios.get(`/api/v1/flights`);
     flights = flights.data.filter(response => response.BAGGAGE === null)
     flights = flights.map(function(flights){ 
       if (flights['ARRIVAL_DATE']){
@@ -31,13 +31,13 @@ export function maintainbagtemp(){
 export function baggagecronfunction(){
   
   const initcheck = async(flights, upcomflight, upcomtime) => {
-    const gatecheck = await axios.get(`http://localhost:5001/api/v1/gates/${upcomflight}`)
-    const baggagecheck = await axios.get(`http://localhost:5001/api/v1/baggages/${upcomflight}`)
+    const gatecheck = await axios.get(`/api/v1/gates/${upcomflight}`)
+    const baggagecheck = await axios.get(`/api/v1/baggages/${upcomflight}`)
     if (baggagecheck.data === null){
       let timediff = moment(upcomtime).add(8,'hours').diff(moment(),'minutes');
       console.log(timediff);
       if (timediff<60){
-        const gatecheck = await axios.get(`http://localhost:5001/api/v1/gates/${upcomflight}`)
+        const gatecheck = await axios.get(`/api/v1/gates/${upcomflight}`)
         if (gatecheck.data !== null){
           console.log("Initiliazed baggage assignment for flight ", upcomflight);
           StartBaggagesCron(flights, upcomflight, gatecheck.data.TERMINAL_NUMBER)  

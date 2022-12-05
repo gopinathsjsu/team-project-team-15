@@ -42,7 +42,7 @@ const AddFlight = () =>{
 
     const arrSaveFlight = async (e) => {
       e.preventDefault();
-      await axios.post('http://localhost:5001/api/v1/flights/',{
+      await axios.post('/api/v1/flights/',{
           FLIGHT_CODE: FLIGHT_CODE,
           AIRLINE_CODE: AIRLINE_CODE,
           ARRIVAL_PLACE: 'SFO',
@@ -56,7 +56,7 @@ const AddFlight = () =>{
 
     const depSaveFlight = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:5001/api/v1/flights/',{
+        await axios.post('/api/v1/flights/',{
             FLIGHT_CODE: FLIGHT_CODE,
             AIRLINE_CODE: AIRLINE_CODE,
             ARRIVAL_PLACE: ARRIVAL_PLACE,

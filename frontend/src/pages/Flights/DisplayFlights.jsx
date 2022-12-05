@@ -28,7 +28,7 @@ const FlightsList = () => {
 
     const updateDepFlight = async (FLIGHT_CODE,AIRLINE_CODE,ARRIVAL_PLACE,DEPARTURE_DATE,TERMINAL_NUMBER,GATE_NUMBER) => {
         //e.preventDefault();
-        await axios.patch(`http://localhost:5001/api/v1/flights/${FLIGHT_CODE}`,{
+        await axios.patch(`/api/v1/flights/${FLIGHT_CODE}`,{
             FLIGHT_CODE: FLIGHT_CODE,
             AIRLINE_CODE: AIRLINE_CODE,
             ARRIVAL_PLACE: ARRIVAL_PLACE,
@@ -41,7 +41,7 @@ const FlightsList = () => {
 
     const updateArrFlight = async (FLIGHT_CODE,AIRLINE_CODE,DEPARTURE_PLACE,ARRIVAL_DATE,TERMINAL_NUMBER,GATE_NUMBER,BAGGAGE_NUMBER) => {
         //e.preventDefault();
-        await axios.patch(`http://localhost:5001/api/v1/flights/${FLIGHT_CODE}`,{
+        await axios.patch(`/api/v1/flights/${FLIGHT_CODE}`,{
             FLIGHT_CODE: FLIGHT_CODE,
             AIRLINE_CODE: AIRLINE_CODE,
             DEPARTURE_PLACE: DEPARTURE_PLACE,
@@ -54,7 +54,7 @@ const FlightsList = () => {
     }
 
     const getFlights = async (hours) => {
-        let initresponse = await axios.get(`http://localhost:5001/api/v1/flights`);
+        let initresponse = await axios.get(`/api/v1/flights`);
         setFlights(initresponse.data);
         let response = initresponse.data.map(function(flights){ 
             if (flights['GATE'] == null){
@@ -118,25 +118,25 @@ const FlightsList = () => {
     }
 
     const Next1hr = async() =>{ 
-        getFlights(0,1);
+        getFlights(1);
     }
 
     const Next2hr = async() =>{ 
-        getFlights(0,2);
+        getFlights(2);
     }
 
     const Next4hr = async() =>{ 
-        getFlights(0,4);
+        getFlights(4);
     }
     
     const Next5hr = async() =>{ 
-        getFlights(0,1500);
+        getFlights(1500);
     }
 
    
 
     const deleteFlight = async (FLIGHT_CODE) =>{ 
-        await axios.delete(`http://localhost:5001/api/v1/flights/${FLIGHT_CODE}`);
+        await axios.delete(`/api/v1/flights/${FLIGHT_CODE}`);
         getFlights(15000);
     }
 
