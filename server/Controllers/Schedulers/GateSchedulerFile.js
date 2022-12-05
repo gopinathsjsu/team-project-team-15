@@ -2,11 +2,13 @@ import fs from "fs"
 import moment from "moment";
 import axios from "axios";
 import {StartGatesCron} from "./GatesCronJob.js";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export function maintaingatetemp(){
 
   const getflights = async() => {
-    let flights = await axios.get(`/api/v1/flights`);
+    let flights = await axios.get(`${process.env.HOST}/api/v1/flights`);
     flights = flights.data.filter(response => response.GATE === null)
     flights = flights.map(function(flights){ 
       if (flights['DEPARTURE_DATE']){
@@ -30,7 +32,7 @@ export function maintaingatetemp(){
 
 export function gatecronfunction(){
   const initcheck = async(flights, upcomflight, upcomtime) => {
-    const gatecheck = await axios.get(`/api/v1/gates/${upcomflight}`)
+    const gatecheck = await axios.get(`${process.env.HOST}/api/v1/gates/${upcomflight}`)
     if (gatecheck.data === null){
       let timediff = moment(upcomtime).add(8,'hours').diff(moment(),'minutes');
       if (timediff<60){
