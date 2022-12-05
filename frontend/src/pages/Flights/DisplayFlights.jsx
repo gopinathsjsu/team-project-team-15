@@ -23,7 +23,7 @@ const FlightsList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getFlights(-1,15000)
+        getFlights(15000)
     }, []);
 
     const updateDepFlight = async (FLIGHT_CODE,AIRLINE_CODE,ARRIVAL_PLACE,DEPARTURE_DATE,TERMINAL_NUMBER,GATE_NUMBER) => {
