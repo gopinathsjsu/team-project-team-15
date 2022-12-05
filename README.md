@@ -63,6 +63,10 @@ Implement an end2end Airport Management system that can be configured for a give
 
 
 ## UI Wireframes
+![image](https://user-images.githubusercontent.com/100327244/205582391-cd915c7f-d0f7-4f68-9226-67fc12cebe85.png)
+![image](https://user-images.githubusercontent.com/100327244/205582405-97f3e1a4-2bc7-4a4c-b90c-4968d073f19f.png)
+![image](https://user-images.githubusercontent.com/100327244/205582415-4b1f9ff0-df57-47c1-8cac-5ce747e13e1a.png)
+
 
 
 ## Scrum
