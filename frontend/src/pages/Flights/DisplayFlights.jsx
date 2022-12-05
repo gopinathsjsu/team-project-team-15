@@ -20,7 +20,7 @@ const FlightsList = () => {
     }, []);
 
     const getFlights = async (ear,hours) => {
-        const initresponse = await axios.get(`http://localhost:5001/api/v1/flights`);
+        const initresponse = await axios.get(`/api/v1/flights`);
         setFlights(initresponse.data);
         const response = initresponse.data.map(function(flights){ 
             if (flights['GATE'] == null){
@@ -73,7 +73,7 @@ const FlightsList = () => {
     }
 
     const deleteFlight = async (FLIGHT_CODE) =>{ 
-        await axios.delete(`http://localhost:5001/api/v1/flights/${FLIGHT_CODE}`);
+        await axios.delete(`/api/v1/flights/${FLIGHT_CODE}`);
         getFlights(15000);
     }
 
