@@ -1,13 +1,14 @@
 import axios from "axios";
 import fs from "fs";
 //import { baggagecronfunction } from "./BaggageSchedulerFile.js";
-
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export function StartBaggagesCron(flights, upcomflight, flightterminal){  
 
     const AssignBaggage = async(upcomflight, flightterminal) => {
       try {
-        const response = await axios.get(`/api/v1/baggages/rbaggage/${flightterminal}`);
+        const response = await axios.get(`${process.env.HOST}/api/v1/baggages/rbaggage/${flightterminal}`);
         const assignapicall = `/api/v1/baggages/assignbaggage/${flightterminal}/${response.data.BAGGAGE_NUMBER}`
         const assignbody = {"FLIGHT_CODE": `${upcomflight}`};
         
@@ -20,7 +21,7 @@ export function StartBaggagesCron(flights, upcomflight, flightterminal){
   
     const unAssignBaggage = async(upcomflight, flightterminal) => {
       try {
-        const response = await axios.get(`/api/v1/baggags/${upcomflight}`);
+        const response = await axios.get(`${process.env.HOST}/api/v1/baggags/${upcomflight}`);
         const assignapicall = `/api/v1/baggages/unassignbaggage/${response.data.TERMINAL_NUMBER}/${response.data.BAGGAGE_NUMBER}`;
         const unassignbody = {"FLIGHT_CODE": null};
         
