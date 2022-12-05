@@ -14,7 +14,7 @@ function App() {
   const [gateinputValue, setGateInputValue] = useState('');
   useEffect(() => {
     axios.get(
-        "http://localhost:5001/api/v1/gates/disabledgates"
+        "/api/v1/gates/disabledgates"
       )
       .then((response) => {
         // console.log(response);
@@ -41,7 +41,7 @@ function App() {
   const navigate = useNavigate();
   const enableGate = async (e) => {
     e.preventDefault();
-    const abc = await axios.patch(`http://localhost:5001/api/v1/gates/enablegate/${terminalinputValue}/${gateinputValue}`);
+    const abc = await axios.patch(`/api/v1/gates/enablegate/${terminalinputValue}/${gateinputValue}`);
     console.log(abc);
     navigate("/");
 }

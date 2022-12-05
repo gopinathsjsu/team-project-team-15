@@ -7,8 +7,8 @@ export function StartBaggagesCron(flights, upcomflight, flightterminal){
 
     const AssignBaggage = async(upcomflight, flightterminal) => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/v1/baggages/rbaggage/${flightterminal}`);
-        const assignapicall = `http://localhost:5001/api/v1/baggages/assignbaggage/${flightterminal}/${response.data.BAGGAGE_NUMBER}`
+        const response = await axios.get(`/api/v1/baggages/rbaggage/${flightterminal}`);
+        const assignapicall = `/api/v1/baggages/assignbaggage/${flightterminal}/${response.data.BAGGAGE_NUMBER}`
         const assignbody = {"FLIGHT_CODE": `${upcomflight}`};
         
         await axios.post(`${assignapicall}`,assignbody);
@@ -20,8 +20,8 @@ export function StartBaggagesCron(flights, upcomflight, flightterminal){
   
     const unAssignBaggage = async(upcomflight, flightterminal) => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/v1/baggags/${upcomflight}`);
-        const assignapicall = `http://localhost:5001/api/v1/baggages/unassignbaggage/${response.data.TERMINAL_NUMBER}/${response.data.BAGGAGE_NUMBER}`;
+        const response = await axios.get(`/api/v1/baggags/${upcomflight}`);
+        const assignapicall = `/api/v1/baggages/unassignbaggage/${response.data.TERMINAL_NUMBER}/${response.data.BAGGAGE_NUMBER}`;
         const unassignbody = {"FLIGHT_CODE": null};
         
         await axios.post(`${assignapicall}`,unassignbody);
