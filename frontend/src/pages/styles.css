@@ -166,7 +166,7 @@ td span {
     text-transform: uppercase;
     border: 1px solid #015C92;
     background-color: #015C92;
-    margin: 0.2rem;
+    margin-left: 4rem;
 }
 .dropdown {
     display: flex;
