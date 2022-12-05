@@ -92,12 +92,19 @@ Amazon RDS: We chose RDS because it is simple to set up and use, and it provides
 
 ## Our Project UI screenshots:
 ![image](https://user-images.githubusercontent.com/100327244/205581483-cde0acbf-5d11-42e3-bfb1-93451618518b.png)
+
 ![image](https://user-images.githubusercontent.com/100327244/205581511-d9e01455-3f8c-457e-92e5-0ca5a7009d0b.png)
+
 ![image](https://user-images.githubusercontent.com/100327244/205581538-d55a2235-8676-4d89-a908-f1ab698bdcf9.png)
+
 ![image](https://user-images.githubusercontent.com/100327244/205581559-6021e887-5da9-416f-a445-8c9dd9aaf984.png)
+
 ![image](https://user-images.githubusercontent.com/100327244/205581581-5d8c7319-cafe-4ddd-973d-ac77aa57d6b7.png)
+
 ![image](https://user-images.githubusercontent.com/100327244/205581605-e7d792df-dcbf-4e4d-b814-0ae0685e380a.png)
+
 ![image](https://user-images.githubusercontent.com/100327244/205581620-c5b63663-1156-4a80-8324-5f4a187a1fa1.png)
+
 ![image](https://user-images.githubusercontent.com/100327244/205581643-68b53714-8d65-4d3e-b8aa-9d110b530886.png)
 
 
