@@ -12,13 +12,14 @@ Implement an end2end Airport Management system that can be configured for a give
  - Sourya Jammula
 
 ## Contributions:
-- The entire Frontend has been equally divided and done by "   " and " "
-- The entire Backend has been equally divided and done by " " and " "
+- The entire Frontend has been equally divided and done by "Sourya" and "Lalitha "
+- The entire Backend has been equally divided and done by "Vamsi " and "sourya "
 - The architecture of the project and database design has been discussed with the entire team and finalized.
-- Other than that, diagrams has been done by " " and " "
-- Entire Documentation has been done by " " and " "
-- Cloud deployment has been done by " " and " "
-- UI wireframes has been taken care by " " and " "
+- Scrum leadership is done by "Abhighna"
+- Other than that, Design diagrams has been done by "Abhighna"
+- Entire Documentation has been done by "Abhighna"
+- Cloud deployment has been done by "Abhighna" 
+- UI wireframes has been taken care by "Abhighna"
 
 ## Scrum Task Board
 
