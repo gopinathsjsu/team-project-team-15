@@ -1,9 +1,9 @@
 import express, { request } from "express";
 import db from "./config/database.js";
-import Routes from "./routes/index.js";
+import Routes from "./Routes/index.js";
 import cors from "cors";
 import cron from "node-cron";
-import gateRoutes from "./routes/index.js";
+import gateRoutes from "./Routes/index.js";
 import { gatecronfunction, maintaingatetemp } from "./Controllers/Schedulers/GateSchedulerFile.js";
 import { baggagecronfunction, maintainbagtemp } from "./Controllers/Schedulers/BaggageSchedulerFile.js";
 
