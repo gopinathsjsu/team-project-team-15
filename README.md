@@ -50,10 +50,13 @@ Implement an end2end Airport Management system that can be configured for a give
 ![image](https://user-images.githubusercontent.com/100327244/205541570-c73a389d-c6b0-40d7-a613-b7bedfa472c7.png)
 
 ## DB Design
+![image](https://user-images.githubusercontent.com/100327244/205581050-8497a1c5-cef7-4b89-a00b-b96936f572ba.png)
 
 ## Use Case Diagram
+![image](https://user-images.githubusercontent.com/100327244/205581086-28bbe35a-327d-4867-b67b-6d3f93d9baa7.png)
 
 ## Component diagram
+![image](https://user-images.githubusercontent.com/100327244/205581101-981a3a8a-aee3-411f-8c91-621b7fbafa4e.png)
 
 ## Deployment diagram
 ![image](https://user-images.githubusercontent.com/100327244/205541945-97b78fc9-9897-4b6a-a1fc-fbd911dc6fab.png)
