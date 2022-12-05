@@ -30,6 +30,7 @@ const corsOptions ={
 app.use(cors(corsOptions));
     
 app.post('/api/v1/login', logincontroller.get);
+app.get('/', flightscontroller.test);
 app.get('/api/v1/flights/', flightscontroller.getAllFlights);
 app.get('/api/v1/flights/:id', flightscontroller.getFlightById);
 app.post('/api/v1/flights/', flightscontroller.AddFlight);
