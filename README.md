@@ -32,7 +32,7 @@ Implement an end2end Airport Management system that can be configured for a give
 - Frontend: ReactJS
 - Backend: Express, Node.js
 - Database: RDS MySQL
-- REST API: Postman(Testing APIs)
+- REST API: Express
 - Cloud: AWS EC2
 
 ## XP values
