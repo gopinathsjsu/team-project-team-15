@@ -40,19 +40,33 @@ const AddFlight = () =>{
         navigate('/');
     }
 
-    const saveFlight = async (e) => {
+    const arrSaveFlight = async (e) => {
       e.preventDefault();
       await axios.post('http://localhost:5001/api/v1/flights/',{
           FLIGHT_CODE: FLIGHT_CODE,
           AIRLINE_CODE: AIRLINE_CODE,
-          ARRIVAL_PLACE: ARRIVAL_PLACE,
+          ARRIVAL_PLACE: 'SFO',
           DEPARTURE_PLACE: DEPARTURE_PLACE,
           ARRIVAL_DATE: ARRIVAL_DATE,
-          DEPARTURE_DATE: DEPARTURE_DATE
+          DEPARTURE_DATE: null
       });
       
       navigate("/");
     }
+
+    const depSaveFlight = async (e) => {
+        e.preventDefault();
+        await axios.post('http://localhost:5001/api/v1/flights/',{
+            FLIGHT_CODE: FLIGHT_CODE,
+            AIRLINE_CODE: AIRLINE_CODE,
+            ARRIVAL_PLACE: ARRIVAL_PLACE,
+            DEPARTURE_PLACE: 'SFO',
+            ARRIVAL_DATE: null,
+            DEPARTURE_DATE: DEPARTURE_DATE
+        });
+        
+        navigate("/");
+      }
 
     useEffect(() => {
         Flight_Type === "Arrival"
@@ -61,9 +75,16 @@ const AddFlight = () =>{
           Flight_Type === "Departure" ? setDepartureContentVisible(true) : setDepartureContentVisible(false);
       }, [Flight_Type]);
 
-    function SubmitButton(){
+    function ArrSubmitButton(){
         if (FLIGHT_CODE && AIRLINE_CODE){
-            return (<button className='dashbord-btn' onClick={ saveFlight }> Add Flight </button>)
+            return (<button className='dashbord-btn' onClick={ arrSaveFlight }> Add Flight </button>)
+        }else{
+            return <button className='dashbord-btn' type="button" disabled>Add Flight</button>
+        }
+    }
+    function DepSubmitButton(){
+        if (FLIGHT_CODE && AIRLINE_CODE){
+            return (<button className='dashbord-btn' onClick={ depSaveFlight }> Add Flight </button>)
         }else{
             return <button className='dashbord-btn' type="button" disabled>Add Flight</button>
         }
@@ -89,26 +110,9 @@ const AddFlight = () =>{
                                 value={ARRIVAL_DATE}
                                 onChange={(e) => setArrivalDate(e.target.value)} />
                     </div>
-                    <div className='dropdown'>
-                    <label className="label">Arrival Place</label>
-                    <input
-                        className="input"
-                        type="text"
-                        placeholder="Arrival Place"
-                        value="SFO"
-                        onChange={(e) => setArrivalPlace(e.target.value)} 
-                        />
-                </div>
-                <div className='dropdown'>
-                        <label className="label">Departure Time</label>
-                        <input
-                            className="input"
-                            type="text"
-                            placeholder="DEPARTURE_DATE"
-                            value="NULL"
-                            onChange={(e) => setDepartureDate(e.target.value)} />
-                </div>
+                    
             </React.Fragment>
+            
 
             );
     };
@@ -144,7 +148,8 @@ const AddFlight = () =>{
     return (
       <div className='dashboard-content'>
         <DashboardHeader btnText="Home" onClick={goHome}/>
-          <form onSubmit={ saveFlight }>
+        <form>
+          {/* <form onSubmit={ saveFlight }> */}
                 <div className='dashboard-content-dropdown'>
                 {/* <div className="field"> */}
                 
@@ -182,7 +187,9 @@ const AddFlight = () =>{
                     {departureContentVisible && <Departure />}
                 </div>
                 <div className='dropdown'>
-                    <SubmitButton/>
+                    {arrivalContentVisible && <ArrSubmitButton/>}
+                    {departureContentVisible && <DepSubmitButton/>}
+                    
                 </div>
                 </div>
 
