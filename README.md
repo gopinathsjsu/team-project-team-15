@@ -3,61 +3,89 @@ team-project-team-15 created by GitHub Classroom
 
 Use Case
 ------------
-Implement an end2end Airport Management system that can be configured for a given airport (Web interface or Mobile app interface with supporting Backend APIs), that integrates Airline Flight Schedules, Gate Assignments, Baggage Claim assignment for arriving flights
+Implement an end2end Airport Management system that can be configured for a given airport (Web interface or Mobile app interface with supporting Backend APIs), that integrates Airline Flight Schedules, Gate Assignments, Baggage Claim assignment for arriving flights.
 
-Components
--------------
-
-- **APIs:**  
-  - Input and output of API should be in JSON and should include error handling and validation of inputs  
-  - APIs will be demonstrated using a Web/mobile UI.  
-  - UI is accessed by Passengers (Customers) and Airline employees and Airport employees (3 roles)  
-
-- **APIs should support followingfunctionality:**  
-  - Retrieve Flight arrivals and departures and Gate assignments - based on time durations (next hour, next 2 hours, next 4 hours) - this data will be displayed in multiple monitors throughout the airport - viewable by all users  .
-  - Implement a Random Gate assignment for Arriving and Departing flights - designed to prevent conflicting assignments - allow for an hour for each flight to be at the gate (for arrivals and for departures)  
-
-- **Airport employees:**  
-  - Enable or disable one or more gates for maintenance  
-  - Assign Baggage Carousel number to Arriving flights - the system should prevent conflicting assignments  
-  - Baggage Claim information will be displayed in multiple monitors in the Arrival area  
-
-- **Airline employees:**  
-  - Add or update the schedule of flights belonging to their airline relevant to that airport (arrivals and departures)  
-  - APIs and UI functionality will be available based on Roles specified above  
-  - Assume Gates are distributed in multiple terminals (1, 2, 3 to keep it simple)  
-  - Assume Gates are labeled as A1-A32, B1-B32 and C1-C32  
-  - Deploy API to AWS in an Auto Scaled EC2 Cluster with Load Balancer (or another cloud provider)  
-  - Develop a Web or mobile UI that will make use of the APIs  
-  - Create your own database with mock data - use SFO or SJC as an example airport for your data  
- 
-**Sprint Task Sheet:** https://docs.google.com/spreadsheets/d/1a7e6MloN57nmLVhD6L4VbmJtouL7KFBX/edit?usp=sharing&ouid=118107494258115268955&rtpof=true&sd=true
-
-Team Members
--------------
- - Sourya
+## Team members:
  - Lalitha Ramya
  - Sai Vamsi Dutt Patibandla
- - Abhigna
+ - Abhighna Kapilavai
+ - Sourya Jammula
 
-### <a href="https://github.com/gopinathsjsu/team-project-code_team15">Github Repo</a>
+## Contributions:
+- The entire Frontend has been equally divided and done by "   " and " "
+- The entire Backend has been equally divided and done by " " and " "
+- The architecture of the project and database design has been discussed with the entire team and finalized.
+- Other than that, diagrams has been done by " " and " "
+- Entire Documentation has been done by " " and " "
+- Cloud deployment has been done by " " and " "
+- UI wireframes has been taken care by " " and " "
 
+## Scrum Task Board
 
-## XP Core Values
+### <a href="https://docs.google.com/spreadsheets/d/1weY_GHhofU0jSJJvLD5lhG5FmmLjOBSH/edit?usp=share_link&ouid=100184353065011251171&rtpof=true&sd=true">Sprint Task Board & Burndown Chart</a>
 
-- **_Communication_** : We conducted meetings every week in-person to discuss crucial aspects of the project by collaborating and communicating with each other.
-- **_Feedback_** : Team members delivered software frequently, got feedback about it, and refractored the code to make improvements for working code and fix bugs.
+## Project Journals
+### <a href="https://docs.google.com/document/d/1cpyHVhgdqCCyZ_bRKQo0pA0WiOWOcQ3n/edit?usp=share_link&ouid=100184353065011251171&rtpof=true&sd=true">Entire Team Project Journal</a>
 
-<b>How the team kept the core value? </b>
-- Team meetings were held during which diagrams were created to depict the structure of the tables in the back-end. <br>
-- Mock-ups of how the front-end will look like on Figma. <br>
-- Every Standup contains a discussion of the work completed, the obstacles encountered, and any deviations from the diagrams and mockups in the implementation.
-
-## TECH STACK USED:
-
+## Technology Stack
 - Frontend: ReactJS
-- Backend: Java SpringBoot
+- Backend: Express, Node.js
 - Database: RDS MySQL
 - REST API: Postman(Testing APIs)
 - Cloud: AWS EC2
+
+## XP values
+###### Communication 
+* We had weekly scrum calls over zoom to discuss the tasks and progress. 
+* We communicated important updates regarding the project over whatsapp and gmail.
+###### Feedback 
+* We constantly had mid-week meetings to check the work that was done and gave constructive feedback if required. 
+* We also conducted Sprint restrospective at the end of the week to discuss what went well, what could be improved.
+###### Respect 
+* We conducted our meetings, discussion professionally having respect towards each other.
+* We values everyone's opinion in the project and setup a meeting to discuss whenever there is a conflict of opinion. 
+
+## Architecture Diagram
+![image](https://user-images.githubusercontent.com/100327244/205541570-c73a389d-c6b0-40d7-a613-b7bedfa472c7.png)
+
+## DB Design
+
+## Use Case Diagram
+
+## Component diagram
+
+## Deployment diagram
+![image](https://user-images.githubusercontent.com/100327244/205541945-97b78fc9-9897-4b6a-a1fc-fbd911dc6fab.png)
+
+
+## UI Wireframes
+
+
+## Scrum
+- We used two-week sprints with scrum calls every week.
+
+## Design Decision
+
+- For Backend:
+NodeJs:  Node.js can easily be used as a server-side proxy, handling a large number of simultaneous connections in a non-blocking manner. It's particularly useful for proxying different services with varying response times or gathering data from multiple sources.
+
+- For Frontend: 
+React : We used React to simplify ui/ux development by creating application components. We were able to improve code maintainability and refactoring by dividing entire pages into different components.
+
+- For Database:
+Amazon RDS: We chose RDS because it is simple to set up and use, and it provides excellent support for database synchronization, associations, transactions, and migrations while reducing development time and preventing SQL injections. 
+
+## Feature Set of our project:
+1. 3 categories of users: Normal customers, Airline employees and Airport Employees. Users to access the System with role based authentication. 
+2. Retrive flight arrivals and departures and gate assignments based on time selected by user. This information can be viewed by all kind of users.
+3. Gate and Baggage Claim information will be displayed in the homepage which can viewed by all kind of users.
+4. Airport Employees: They can enable or disable one or more gates for maintenance.
+5. Airport Employees: They can assign Baggage Carousel number to Arriving flights and the system would prevent conflicting assignments.
+6. Airline Employees: Add or update the schedule of flights belonging to their airlines.
+7. Implemented a scheduler for Random Gate assignment for Arriving and Departing flights. We have designed this to prevent conflicting assignments.
+8. Implemented a scheduler to remove gates and baggages automatically after the flights have been departed.
+
+
+## Our Project UI screenshots:
+
 
