@@ -98,3 +98,7 @@ export const deleteFlight = async (req, res) => {
     }  
 }
 
+export const test = async(req, res) =>{
+    const testjson = "Hey there!"
+    return res.json({"message": testjson});
+}
